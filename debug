@@ -1,13 +1,7 @@
-2025-05-13 11:45:06.749 [info] Author identity unknown
-
-*** Please tell me who you are.
-
-Run
-
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-
-to set your account's default identity.
-Omit --global to set the identity only in this repository.
-
-fatal: no email was given and auto-detection is disabled
+2025-05-13 11:47:20.866 [info] > git show --textconv :prometheus/instances/mgmt/values.yaml [251ms]
+2025-05-13 11:47:29.139 [info] > git pull --tags origin main [11276ms]
+2025-05-13 11:47:29.139 [info] remote: Verify
+fatal: Authentication failed for 'https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git/'
+2025-05-13 11:47:29.486 [info] > git config --get commit.template [332ms]
+2025-05-13 11:47:29.522 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) --ignore-case refs/heads/main refs/remotes/main [356ms]
+2025-05-13 11:47:30.079 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [526ms]
