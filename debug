@@ -1,7 +1,100 @@
-2025-05-13 11:47:20.866 [info] > git show --textconv :prometheus/instances/mgmt/values.yaml [251ms]
-2025-05-13 11:47:29.139 [info] > git pull --tags origin main [11276ms]
-2025-05-13 11:47:29.139 [info] remote: Verify
-fatal: Authentication failed for 'https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git/'
-2025-05-13 11:47:29.486 [info] > git config --get commit.template [332ms]
-2025-05-13 11:47:29.522 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) --ignore-case refs/heads/main refs/remotes/main [356ms]
-2025-05-13 11:47:30.079 [info] > git for-each-ref --sort -committerdate --format %(refname)%00%(objectname)%00%(*objectname) [526ms]
+andvas@m026vaand:/mnt/c/Users/t026vaand/repo/infrastructure-kubernetes/prometheus/instances/mgmt$ k describe servicemonitor prometheus-mgmt-kube-prome-kubelet
+Name:         prometheus-mgmt-kube-prome-kubelet
+Namespace:    monitoring
+Labels:       app=kube-prometheus-stack-kubelet
+              app.kubernetes.io/instance=prometheus-mgmt
+              app.kubernetes.io/managed-by=Helm
+              app.kubernetes.io/part-of=kube-prometheus-stack
+              app.kubernetes.io/version=66.2.1
+              argocd.argoproj.io/instance=prometheus-mgmt
+              chart=kube-prometheus-stack-66.2.1
+              heritage=Helm
+              release=prometheus-mgmt
+Annotations:  <none>
+API Version:  monitoring.coreos.com/v1
+Kind:         ServiceMonitor
+Metadata:
+  Creation Timestamp:  2025-03-18T07:55:32Z
+  Generation:          1
+  Resource Version:    175950323
+  UID:                 9595cf91-d336-49ea-8d7d-e7f010eb8663
+Spec:
+  Attach Metadata:
+    Node:  false
+  Endpoints:
+    Bearer Token File:  /var/run/secrets/kubernetes.io/serviceaccount/token
+    Honor Labels:       true
+    Honor Timestamps:   true
+    Port:               https-metrics
+    Relabelings:
+      Action:  replace
+      Source Labels:
+        __metrics_path__
+      Target Label:  metrics_path
+    Scheme:          https
+    Tls Config:
+      Ca File:               /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      Insecure Skip Verify:  true
+    Bearer Token File:       /var/run/secrets/kubernetes.io/serviceaccount/token
+    Honor Labels:            true
+    Honor Timestamps:        true
+    Metric Relabelings:
+      Action:  drop
+      Regex:   container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)
+      Source Labels:
+        __name__
+      Action:  drop
+      Regex:   container_fs_(io_current|io_time_seconds_total|io_time_weighted_seconds_total|reads_merged_total|sector_reads_total|sector_writes_total|writes_merged_total)
+      Source Labels:
+        __name__
+      Action:  drop
+      Regex:   container_memory_(mapped_file|swap)
+      Source Labels:
+        __name__
+      Action:  drop
+      Regex:   container_(file_descriptors|tasks_state|threads_max)
+      Source Labels:
+        __name__
+      Action:  drop
+      Regex:   container_spec.*
+      Source Labels:
+        __name__
+      Action:  drop
+      Regex:   .+;
+      Source Labels:
+        id
+        pod
+    Path:  /metrics/cadvisor
+    Port:  https-metrics
+    Relabelings:
+      Action:  replace
+      Source Labels:
+        __metrics_path__
+      Target Label:  metrics_path
+    Scheme:          https
+    Tls Config:
+      Ca File:               /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      Insecure Skip Verify:  true
+    Bearer Token File:       /var/run/secrets/kubernetes.io/serviceaccount/token
+    Honor Labels:            true
+    Honor Timestamps:        true
+    Path:                    /metrics/probes
+    Port:                    https-metrics
+    Relabelings:
+      Action:  replace
+      Source Labels:
+        __metrics_path__
+      Target Label:  metrics_path
+    Scheme:          https
+    Tls Config:
+      Ca File:               /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      Insecure Skip Verify:  true
+  Job Label:                 k8s-app
+  Namespace Selector:
+    Match Names:
+      kube-system
+  Selector:
+    Match Labels:
+      app.kubernetes.io/name:  kubelet
+      k8s-app:                 kubelet
+Events:                        <none>
