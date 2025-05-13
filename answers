@@ -1,0 +1,8 @@
+kubelet:
+  enabled: true
+  serviceMonitor:
+    https: true
+    metricRelabelings:
+      - action: keep
+        regex: kubelet_volume_stats_.*
+        sourceLabels: [__name__]
