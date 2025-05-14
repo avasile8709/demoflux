@@ -1,19 +1,23 @@
-Thanks for sharing the detailed kubectl describe servicemonitor output.
-
-🔍 Here's what I can confirm from it:
-✅ You have 3 endpoints configured for the Kubelet scrape:
-
-/metrics (default)
-
-/metrics/cadvisor
-
-/metrics/probes
-
-❌ No metricRelabelings for kubelet_volume_stats_* on the default /metrics endpoint — that’s the one where volume stats are exposed.
-
-❌ All metricRelabelings currently apply only to /metrics/cadvisor, and they’re all action: drop.
-
-🔧 Why volume metrics are missing
-The kubelet_volume_stats_* metrics (like kubelet_volume_stats_capacity_bytes, used_bytes, etc.) come from the /metrics endpoint.
-
-Because your /metrics endpoint has no metricRelabelings, and the default chart doesn’t retain those metrics unless explicitly told to — they’re being excluded.
+err="found duplicate series for the match group {instance=\"10.241.181.25:10250\"} on the right hand-side of the operation:
+[
+  {
+    __name__=\"kubelet_node_name\",
+    endpoint=\"https-metrics\",
+    instance=\"10.241.181.25:10250\",
+    job=\"kubelet\",
+    metrics_path=\"/metrics\",
+    namespace=\"kube-system\",
+    node=\"k0n02\",
+    service=\"prometheus-mgmt-kube-prome-kubelet\"
+  },
+  {
+    __name__=\"kubelet_node_name\",
+    endpoint=\"https-metrics\",
+    instance=\"10.241.181.25:10250\",
+    job=\"kubelet\",
+    metrics_path=\"/metrics\",
+    namespace=\"kube-system\",
+    node=\"k0n02\",
+    service=\"prom-kube-prometheus-stack-kubelet\"
+  }
+]; many-to-many matching not allowed: matching labels must be unique on one side"
