@@ -1,21 +1,13 @@
-prometheus:
-    prometheusSpec:
-      replicas: 1
-      serviceMonitorSelectorNilUsesHelmValues: "false"
-      podMonitorSelectorNilUsesHelmValues: "false"
-      ruleSelectorNilUsesHelmValues: "true"
-      ruleSelector:
-        matchLabels:
-          role: crisp-rules
-      # serviceMonitorSelector:
-      #   matchExpressions:
-      #     - key: release
-      #       operator: exists
-      nodeSelector:
-        kubernetes.io/os: linux
-        ReservedFor: monitoring
+  serviceMonitorSelector:
+    matchLabels:
+      release: "prometheus-operator"
 
-      tolerations:
-        - key: "CriticalAddonsOnly"
-          operator: "Equal"
-          value: "true"
+  serviceMonitorNamespaceSelector: {}
+  podMonitorSelector:
+    matchLabels:
+      release: "prometheus-operator"
+
+  podMonitorNamespaceSelector: {}
+  probeSelector:
+    matchLabels:
+      release: "prometheus-operator"
