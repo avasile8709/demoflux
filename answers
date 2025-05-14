@@ -1,23 +1,8 @@
-err="found duplicate series for the match group {instance=\"10.241.181.25:10250\"} on the right hand-side of the operation:
-[
-  {
-    __name__=\"kubelet_node_name\",
-    endpoint=\"https-metrics\",
-    instance=\"10.241.181.25:10250\",
-    job=\"kubelet\",
-    metrics_path=\"/metrics\",
-    namespace=\"kube-system\",
-    node=\"k0n02\",
-    service=\"prometheus-mgmt-kube-prome-kubelet\"
-  },
-  {
-    __name__=\"kubelet_node_name\",
-    endpoint=\"https-metrics\",
-    instance=\"10.241.181.25:10250\",
-    job=\"kubelet\",
-    metrics_path=\"/metrics\",
-    namespace=\"kube-system\",
-    node=\"k0n02\",
-    service=\"prom-kube-prometheus-stack-kubelet\"
-  }
-]; many-to-many matching not allowed: matching labels must be unique on one side"
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    podMonitorSelector: {}
+    podMonitorNamespaceSelector: {}
+    probeSelector: {}
+    probeNamespaceSelector: {}
