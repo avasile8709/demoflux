@@ -1,8 +1,2 @@
-prometheus:
-  prometheusSpec:
-    serviceMonitorSelector: {}
-    serviceMonitorNamespaceSelector: {}
-    podMonitorSelector: {}
-    podMonitorNamespaceSelector: {}
-    probeSelector: {}
-    probeNamespaceSelector: {}
+100 * (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes))
+node_filesystem_size_bytes{mountpoint=~"/var/lib/kubelet/pods/.*"}
