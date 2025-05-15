@@ -2,7 +2,7 @@
   "dashboard": {
     "id": null,
     "uid": null,
-    "title": "PVC Disk Usage (node_filesystem metrics)",
+    "title": "PVC Disk Usage (node_filesystem)",
     "tags": [
       "pvc",
       "disk",
