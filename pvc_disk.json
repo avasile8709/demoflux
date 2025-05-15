@@ -1,0 +1,123 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": null,
+    "title": "PVC Disk Usage (node_filesystem metrics)",
+    "tags": [
+      "pvc",
+      "disk",
+      "usage"
+    ],
+    "timezone": "browser",
+    "schemaVersion": 30,
+    "version": 1,
+    "refresh": "10s",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "PVC Disk Usage (%)",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 6
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "targets": [
+          {
+            "expr": "100 * (1 - (node_filesystem_avail_bytes{mountpoint=~\"$pvc\",fstype!=\"tmpfs\",fstype!=\"overlay\"} / node_filesystem_size_bytes{mountpoint=~\"$pvc\",fstype!=\"tmpfs\",fstype!=\"overlay\"}))",
+            "legendFormat": "{{mountpoint}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 75
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "options": {
+          "reduceOptions": {
+            "values": false,
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "orientation": "auto",
+          "textMode": "value"
+        }
+      },
+      {
+        "type": "table",
+        "title": "PVC Usage by Mountpoint",
+        "gridPos": {
+          "x": 0,
+          "y": 6,
+          "w": 24,
+          "h": 10
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "targets": [
+          {
+            "expr": "100 * (1 - (node_filesystem_avail_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"} / node_filesystem_size_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"}))",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "options": {
+          "showHeader": true
+        }
+      }
+    ],
+    "templating": {
+      "list": [
+        {
+          "name": "datasource",
+          "type": "datasource",
+          "query": "prometheus",
+          "label": "Data Source",
+          "refresh": 1
+        },
+        {
+          "name": "pvc",
+          "type": "query",
+          "datasource": "${datasource}",
+          "refresh": 1,
+          "definition": "label_values(node_filesystem_avail_bytes{mountpoint=~\"/opt/local-path-provisioner/pvc.*\"}, mountpoint)",
+          "label": "PVC Mountpoint",
+          "multi": false,
+          "includeAll": false
+        }
+      ]
+    }
+  },
+  "overwrite": true
+}
