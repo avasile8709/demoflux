@@ -1,13 +1,5 @@
-  serviceMonitorSelector:
-    matchLabels:
-      release: "prometheus-operator"
-
-  serviceMonitorNamespaceSelector: {}
-  podMonitorSelector:
-    matchLabels:
-      release: "prometheus-operator"
-
-  podMonitorNamespaceSelector: {}
-  probeSelector:
-    matchLabels:
-      release: "prometheus-operator"
+PROVISIONER                     
+rook-ceph.rbd.csi.ceph.com      
+rook-ceph.ceph.rook.io/bucket   
+rook-ceph.cephfs.csi.ceph.com   
+rancher.io/local-path     
