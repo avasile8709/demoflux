@@ -1,42 +1,5 @@
-prometheus-mgmt-grafana-58f687cf5f-79plm:/usr/share/grafana$ df -h 
-Filesystem                Size      Used Available Use% Mounted on
-overlay                  97.9G     63.2G     29.7G  68% /
-tmpfs                    64.0M         0     64.0M   0% /dev
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /tmp/dashboards
-/dev/mapper/vgk-lvol0
-                         97.9G     63.2G     29.7G  68% /etc/resolv.conf
-/dev/mapper/vgk-lvol0
-                         97.9G     63.2G     29.7G  68% /etc/hostname
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /dev/termination-log
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/hosts
-shm                      64.0M         0     64.0M   0% /dev/shm
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /var/lib/grafana
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/grafana.ini
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/alerting
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/datasources
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/plugins
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/folders
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/permissions
-tmpfs                    31.1G     12.0K     31.1G   0% /run/secrets/kubernetes.io/serviceaccount
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/alerting/notification-policies.yaml
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/alerting/contactpoints.yaml
-/dev/mapper/vgroot-var
-                          9.7G      2.1G      7.2G  22% /etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml
-tmpfs                    15.5G         0     15.5G   0% /proc/acpi
-tmpfs                    64.0M         0     64.0M   0% /proc/kcore
-tmpfs                    64.0M         0     64.0M   0% /proc/keys
-tmpfs                    64.0M         0     64.0M   0% /proc/timer_list
-tmpfs                    15.5G         0     15.5G   0% /proc/scsi
-tmpfs                    15.5G         0     15.5G   0% /sys/firmware
+      storageClassName: *crisp_storageClass
+
+
+crisp:
+  storageClass: &crisp_storageClass "local-path"
