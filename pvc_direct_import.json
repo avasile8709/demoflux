@@ -1,0 +1,76 @@
+{
+  "title": "PVC Disk Usage",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Selected PVC Disk Usage (%)",
+      "id": 1,
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 6 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "100 * (1 - (node_filesystem_avail_bytes{mountpoint=~\"$pvc\"} / node_filesystem_size_bytes{mountpoint=~\"$pvc\"}))",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "orange", "value": 75 },
+              { "color": "red", "value": 90 }
+            ]
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        }
+      }
+    },
+    {
+      "type": "table",
+      "title": "PVC Usage by Mountpoint",
+      "id": 2,
+      "gridPos": { "x": 0, "y": 6, "w": 24, "h": 8 },
+      "datasource": "${datasource}",
+      "targets": [
+        {
+          "expr": "100 * (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes))",
+          "refId": "B"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "refresh": 1
+      },
+      {
+        "name": "pvc",
+        "type": "query",
+        "datasource": "${datasource}",
+        "definition": "label_values(node_filesystem_avail_bytes{mountpoint=~\"/opt/local-path-provisioner/pvc.*\"}, mountpoint)",
+        "refresh": 2
+      }
+    ]
+  }
+}
