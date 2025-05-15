@@ -1,2 +1,15 @@
 100 * (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes))
 node_filesystem_size_bytes{mountpoint=~"/var/lib/kubelet/pods/.*"}
+
+
+100 * (1 - (node_filesystem_avail_bytes{fstype!="tmpfs",fstype!="overlay"} / node_filesystem_size_bytes{fstype!="tmpfs",fstype!="overlay"}))
+100 * (1 - (
+  sum by(instance, mountpoint) (node_filesystem_avail_bytes{fstype!="tmpfs",fstype!="overlay"}) /
+  sum by(instance, mountpoint) (node_filesystem_size_bytes{fstype!="tmpfs",fstype!="overlay"})
+))
+
+
+100 * (1 - (
+  node_filesystem_avail_bytes{mountpoint="/var/lib/kubelet",fstype!="tmpfs"} /
+  node_filesystem_size_bytes{mountpoint="/var/lib/kubelet",fstype!="tmpfs"}
+))
