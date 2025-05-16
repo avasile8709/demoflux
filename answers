@@ -13,3 +13,19 @@ node_filesystem_size_bytes{mountpoint=~"/var/lib/kubelet/pods/.*"}
   node_filesystem_avail_bytes{mountpoint="/var/lib/kubelet",fstype!="tmpfs"} /
   node_filesystem_size_bytes{mountpoint="/var/lib/kubelet",fstype!="tmpfs"}
 ))
+
+
+
+(
+  sum(node_filesystem_size_bytes{mountpoint=~"/opt/local-path-provisioner/pvc.*", fstype!="tmpfs", fstype!="overlay"}) -
+  sum(node_filesystem_avail_bytes{mountpoint=~"/opt/local-path-provisioner/pvc.*", fstype!="tmpfs", fstype!="overlay"})
+) / 1e+9
+
+free cap:
+sum(node_filesystem_size_bytes{mountpoint=~"/opt/local-path-provisioner/pvc.*", fstype!="tmpfs", fstype!="overlay"}) / 1e+9
+
+free pvc
+sum(node_filesystem_avail_bytes{mountpoint=~"/opt/local-path-provisioner/pvc.*", fstype!="tmpfs", fstype!="overlay"}) / 1e+9
+
+bonus
+node_filesystem_size_bytes{mountpoint=~"/opt/local-path-provisioner/pvc.*"} / 1e+9
