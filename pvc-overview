@@ -1,0 +1,125 @@
+{
+  "dashboard": {
+    "title": "PVC Storage Usage Overview",
+    "uid": null,
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "version": 1,
+    "refresh": "30s",
+    "templating": {
+      "list": [
+        {
+          "name": "datasource",
+          "type": "datasource",
+          "query": "prometheus",
+          "refresh": 1,
+          "label": "Data Source"
+        }
+      ]
+    },
+    "panels": [
+      {
+        "type": "table",
+        "title": "PVC Disk Usage Table",
+        "id": 1,
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 10
+        },
+        "datasource": "${datasource}",
+        "targets": [
+          {
+            "expr": "node_filesystem_size_bytes{mountpoint=~\".*pvc.*\",fstype!=\"tmpfs\",fstype!=\"overlay\"}",
+            "refId": "A"
+          },
+          {
+            "expr": "node_filesystem_avail_bytes{mountpoint=~\".*pvc.*\",fstype!=\"tmpfs\",fstype!=\"overlay\"}",
+            "refId": "B"
+          },
+          {
+            "expr": "(node_filesystem_size_bytes{mountpoint=~\".*pvc.*\",fstype!=\"tmpfs\",fstype!=\"overlay\"} - node_filesystem_avail_bytes{mountpoint=~\".*pvc.*\",fstype!=\"tmpfs\",fstype!=\"overlay\"})",
+            "refId": "C"
+          },
+          {
+            "expr": "100 * (1 - (node_filesystem_avail_bytes{mountpoint=~\".*pvc.*\",fstype!=\"tmpfs\",fstype!=\"overlay\"} / node_filesystem_size_bytes{mountpoint=~\".*pvc.*\",fstype!=\"tmpfs\",fstype!=\"overlay\"}))",
+            "refId": "D"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes",
+            "custom": {
+              "align": "auto"
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value #A"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Total"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value #B"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Free"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value #C"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Used"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value #D"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Usage %"
+                },
+                {
+                  "id": "unit",
+                  "value": "percent"
+                }
+              ]
+            }
+          ]
+        },
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "displayName": "Usage %",
+              "desc": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "overwrite": true
+}
