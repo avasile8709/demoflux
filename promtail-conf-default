@@ -17,3 +17,36 @@ promtail:
             regex: "Succeeded|Failed"
   nodeSelector:
     kubernetes.io/os: linux
+
+
+
+Rasp 
+
+promtail:
+  enabled: true
+  config:
+    logLevel: info
+    serverPort: 3101
+    clients:
+      - url: http://prometheus-XXX-loki-gateway/loki/api/v1/push
+    scrape_configs:
+      - job_name: kubernetes-pods
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_phase]
+            action: drop
+            regex: "Succeeded|Failed"
+    snippets:
+      pipelineStages:
+        - cri: {}
+        - json:
+            expressions:
+              loglevel: loglevel
+        - regex:
+            expression: '.*\[(?P<loglevel>INFO|WARN|ERROR|DEBUG|SEVERE|AUDIT|FINE)\s*\].*'
+            expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+        - labels:
+            loglevel:
+  nodeSelector:
+    kubernetes.io/os: linux
