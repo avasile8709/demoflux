@@ -1,0 +1,25 @@
+You can find the official documentation for Promtail configuration in these places:
+
+Official Grafana Helm Charts Documentation:
+https://github.com/grafana/helm-charts/tree/main/charts/promtail
+
+Specific Promtail Configuration Documentation:
+https://grafana.com/docs/loki/latest/clients/promtail/configuration/
+
+For Snippets configuration in Helm Charts:
+https://github.com/grafana/helm-charts/blob/main/charts/promtail/values.yaml
+
+In the values.yaml from the official repository, you can see the snippets configuration example:
+
+yaml
+Copy code
+config:
+  # -- Check https://grafana.com/docs/loki/latest/clients/promtail/configuration/#snippets
+  snippets:
+    pipelineStages: []
+    extraRelabelConfigs: []
+    extraScrapeConfigs: []
+And for pipeline stages specific documentation:
+https://grafana.com/docs/loki/latest/clients/promtail/stages/
+
+This shows how to configure different types of parsing stages in Promtail, including the JSON and regex stages you're implementing.
