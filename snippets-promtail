@@ -23,3 +23,29 @@ And for pipeline stages specific documentation:
 https://grafana.com/docs/loki/latest/clients/promtail/stages/
 
 This shows how to configure different types of parsing stages in Promtail, including the JSON and regex stages you're implementing.
+
+
+
+
+promtail:
+  enabled: true
+  config:
+    logLevel: info
+    serverPort: 3101
+    clients:
+      - url: http://prometheus-XXX-loki-gateway/loki/api/v1/push
+    scrape_configs:
+      - job_name: kubernetes-pods
+        kubernetes_sd_configs:
+          # your existing kubernetes_sd_configs here
+    snippets:
+      pipelineStages:
+        - cri: {}
+        - json:
+            expressions:
+              loglevel: loglevel
+        - regex:
+            expression: '.*\[(?P<loglevel>INFO|WARN|ERROR|DEBUG|SEVERE|AUDIT|FINE)\s*\].*'
+            expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+        - labels:
+            loglevel:
