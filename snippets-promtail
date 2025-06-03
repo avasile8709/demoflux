@@ -1,3 +1,33 @@
+recommended config:
+
+promtail:
+  enabled: true
+  config:
+    logLevel: info
+    serverPort: 3101
+    clients:
+      - url: http://prometheus-XXX-loki-gateway/loki/api/v1/push
+    scrape_configs:
+      - job_name: kubernetes-pods
+        kubernetes_sd_configs:
+          - role: pod
+        pipeline_stages:        # This is the correct location
+          - cri: {}
+          - json:
+              expressions:
+                loglevel: loglevel
+          - regex:
+              expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+          - labels:
+              loglevel:
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_phase]
+            action: drop
+            regex: "Succeeded|Failed"
+  nodeSelector:
+    kubernetes.io/os: linux
+
+
 before:
 
 promtail:
