@@ -1,3 +1,7 @@
+4 errors: rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``; rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``; rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``; rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``
+
+sum(count_over_time({namespace="sit", pod=~"rbicbis-cloud-deployment.*"} |~ `status\":500\` [5m]))
+
 TechnicalFailureException: A technical error was encountered
 {\"code\":\"COMMON_BAD_REQUEST\",\"severity\":\"ERROR\",\"message\":\"001 - scheme is not valid: required property 'mop' not found
 status\":400
