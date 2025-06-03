@@ -6,3 +6,29 @@ status\":400
 │ 3f58757c01a\",\,"status\":500\"reasons\":[{\"code\":\"INTERNAL_SERVER_ERROR\",\"severity\":\"ERROR\",\"message\":\"Query did not return a unique result: 2 results were returned\",\"path\":\"Query did not return a unique result: 2 results were returned\"}]
 
 I have this type of errors
+
+
+
+
+
+
+Using count_over_time with a label filter:
+swift
+Copy code
+count_over_time({namespace="sit", pod=~"rbi.*"} |= "Internal_Server_Error" | label_format message="{{ if match \"Internal_Server_Error\" .message }}1{{ end }}" [5m])
+Using sum_over_time with labels:
+cpp
+Run Code
+Copy code
+sum_over_time({namespace="sit", pod=~"rbi.*"} |= "Internal_Server_Error" | json | label_format uniqueId="{{.timestamp}}_{{.message}}" [5m])
+Using group by timestamp:
+vbnet
+Copy code
+sum by (timestamp) (count_over_time({namespace="sit", pod=~"rbi.*"} |= "Internal_Server_Error" [5m]))
+To check your Loki version:
+
+cpp
+Run Code
+Copy code
+{namespace="sit"} | logfmt | __error__ != "" | line_format "{{.loki_version}}"
+If you're using an older version, consider upgrading Loki to get access to newer features like uniq.
