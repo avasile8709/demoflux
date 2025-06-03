@@ -1,0 +1,8 @@
+TechnicalFailureException: A technical error was encountered
+{\"code\":\"COMMON_BAD_REQUEST\",\"severity\":\"ERROR\",\"message\":\"001 - scheme is not valid: required property 'mop' not found
+status\":400
+
+\"errorId\":\"6ad0e425-7dbb-43db-a163-a8a9e7c73ffb\",\"requestId\":\"f01991d3-93ea-44ea-b70c-e3f58757c01a\",\"correlationId\":\"f01991d3-93ea-44ea-b70c-e │
+│ 3f58757c01a\",\,"status\":500\"reasons\":[{\"code\":\"INTERNAL_SERVER_ERROR\",\"severity\":\"ERROR\",\"message\":\"Query did not return a unique result: 2 results were returned\",\"path\":\"Query did not return a unique result: 2 results were returned\"}]
+
+I have this type of errors
