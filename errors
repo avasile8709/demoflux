@@ -32,3 +32,77 @@ Run Code
 Copy code
 {namespace="sit"} | logfmt | __error__ != "" | line_format "{{.loki_version}}"
 If you're using an older version, consider upgrading Loki to get access to newer features like uniq.
+
+
+
+
+
+For these types of logs with status codes, you can extract and label them using LogQL pattern matching. Here are a few approaches:
+
+Using json parser and status code:
+java
+Run Code
+Copy code
+sum by (status_code) (
+  count_over_time({namespace="sit", pod=~"rbi.*"} 
+    | json 
+    | status = "400" or status = "500" 
+    | label_format status_code="{{.status}}" [5m]
+  )
+)
+Using regex to extract status codes:
+vbnet
+Copy code
+sum by (status_code) (
+  count_over_time({namespace="sit", pod=~"rbi.*"} 
+    | regexp "status\":(?P<status_code>[45][0-9]{2})"
+    [5m]
+  )
+)
+Separate queries for different status codes:
+csharp
+Copy code
+# For 400s
+sum(count_over_time({namespace="sit", pod=~"rbi.*"} 
+  |~ "status\":400" [5m]
+)) by (namespace)
+
+# For 500s
+sum(count_over_time({namespace="sit", pod=~"rbi.*"} 
+  |~ "status\":500" [5m]
+)) by (namespace)
+More complex parsing with multiple labels:
+vbnet
+Copy code
+{namespace="sit", pod=~"rbi.*"}
+| json
+| status > 399
+| label_format status_code="{{.status}}"
+| label_format error_code="{{.code}}"
+| count_over_time([5m])
+| sum by (status_code, error_code)
+Using pattern matching for both error codes:
+java
+Run Code
+Copy code
+sum by (error_type) (
+  count_over_time({namespace="sit", pod=~"rbi.*"} 
+    | pattern "<_> status\":<status_code>" 
+    | status_code in ("400", "500")
+    [5m]
+  )
+)
+In Grafana:
+
+Create a panel
+Use one of these queries
+You can create multiple queries in the same panel to show different status codes
+Use different visualizations (Time series, Bar gauge, etc.)
+You can also add alerting based on these metrics
+You might want to create separate panels for:
+
+400 errors (Bad Requests)
+500 errors (Internal Server Errors)
+Error distribution by status code
+Error trends over time
+Remember to adjust the time window [5m] according to your needs.
