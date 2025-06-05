@@ -1,0 +1,16 @@
+2025-06-05 14:53:14.928	
+{
+  "sequenceNumber": 0,
+  "timestamp": 1749124394928,
+  "nanoseconds": 928290758,
+  "level": "DEBUG",
+  "threadName": "CasCluster-internalProvider-db-jdbc-dispatcher-4481",
+  "loggerName": "com.clear2pay.na.technical.events.internal.TechnicalEventLogger.HttpResponseSent",
+  "context": {
+    "name": "default",
+    "birthdate": 1749090428576,
+    "properties": {}
+  },
+  "mdc": {},
+  "message": "HTTP Response sent. content=\"{\\\"propertyValues\\\":[]}\", headers=\"{Set-Cookie=rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Wed, 04-Jun-2025 11:53:14 GMT; SameSite=lax, uuid=738edc87-dee1-4fa9-becf-0b668f287dfd, Content-Type=[application/json], Strict-Transport-Security=[max-age=31536000; includeSubDomains], Access-Control-Allow-Credentials=[true], Access-Control-Allow-Methods=[GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH], Access-Control-Allow-Headers=[origin, content-type, accept, authorization, idempotency_key], Access-Control-Allow-Origin=[*]}\", timestamp=\"2025-06-05T11:53:14.927518496Z\", url=\"https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/property-values\", httpMethod=\"POST\", statusCode=\"200\", contentLength=\"21\", requestId=\"4caf125017c42e7bc4f8eb4754ec36d6\", severity=\"DEBUG\", uuid=\"f6d9072d-c394-45a5-adec-7b53be88511e\", code=\"HttpResponseSent\" producer=HttpResponseLoggingFilter",
+  "throwable": null
