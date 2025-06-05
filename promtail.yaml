@@ -13,9 +13,9 @@ promtail:
               expressions:
                 message: message
                 level: level
-                loglevel: logLevel
+                loglevel: loglevel
           - regex:
-              expression: '(?i).*\[(?P<loglevel>info|warn(?:ing)?|error|debug|severe|finest|audit|fine)\s*\].*'
+              expression: '(?i).*\[(?P<level>info|warn(?:ing)?|error|debug|severe|finest|audit|fine)\s*\].*|.*level=(?:"|\\")(?P<level>info|warn(?:ing)?|error|debug|severe|finest|audit|fine)(?:"|\\").*|.*loglevel=(?:"|\\")(?P<level>info|warn(?:ing)?|error|debug|severe|finest|audit|fine)(?:"|\\").*'
               action: keep
           - template:
               source: message
