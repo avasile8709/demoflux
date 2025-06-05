@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app.kubernetes.io/instance: prometheus-test
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: promtail
+    app.kubernetes.io/version: 3.0.0
+    argocd.argoproj.io/instance: prometheus-test
+    helm.sh/chart: promtail-6.16.6
+  name: prometheus-test-promtail
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: prometheus-test
+      app.kubernetes.io/name: promtail
+  template:
+    metadata:
+      annotations:
+        checksum/config: 55cd31840cf6bd629f2eced898910d4fcfa504b780eae4c12155e3df0f9c382a
+      labels:
+        app.kubernetes.io/instance: prometheus-test
+        app.kubernetes.io/name: promtail
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - args:
+            - '-config.file=/etc/promtail/promtail.yaml'
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          image: registry.crisp.rbro.rbg.cc/devops/grafana/promtail:3.0.0
+          imagePullPolicy: IfNotPresent
+          name: promtail
+          ports:
+            - containerPort: 3101
+              name: http-metrics
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /ready
+              port: http-metrics
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /etc/promtail
+              name: config
+            - mountPath: /run/promtail
+              name: run
+            - mountPath: /var/lib/docker/containers
+              name: containers
+              readOnly: true
+            - mountPath: /var/log/pods
+              name: pods
+              readOnly: true
+      enableServiceLinks: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      securityContext:
+        runAsGroup: 0
+        runAsUser: 0
+      serviceAccountName: prometheus-test-promtail
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Equal
+          value: 'true'
+        - key: ForMonitoring
+          operator: Equal
+          value: 'true'
+      volumes:
+        - name: config
+          secret:
+            secretName: prometheus-test-promtail
+        - hostPath:
+            path: /run/promtail
+          name: run
+        - hostPath:
+            path: /var/lib/docker/containers
+          name: containers
+        - hostPath:
+            path: /var/log/pods
+          name: pods
+  updateStrategy: {}
