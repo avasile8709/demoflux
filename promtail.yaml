@@ -23,7 +23,7 @@ promtail:
               expression: '.*httpMethod=(?:"|\\")(?P<httpMethod>[^"]*)(?:"|\\").*requestURI=(?:"|\\")(?P<requestURI>[^"]*)(?:"|\\").*statusCode=(?:"|\\")(?P<statusCode>[^"]*)(?:"|\\").*serviceName=(?:"|\\")(?P<serviceName>[^"]*)(?:"|\\").*responseTime=(?:"|\\")(?P<responseTime>[0-9]+)ms(?:"|\\").*severity=(?:"|\\")(?P<severity>[^"]*)(?:"|\\").*url=(?:"|\\")(?P<url>[^"]*)(?:"|\\")'
               action: keep
           - regex:
-              expression: '.*requestingSystemId=(?:"|\\")(?P<requestingSystemId>[^"]*)(?:"|\\").*externalReferenceIdentification=(?:"|\\")(?P<externalReferenceId>[^"]*)(?:"|\\").*coreBankingReferenceIdentification=(?:"|\\")(?P<coreBankingRefId>[^"]*)(?:"|\\").*responseCode=(?:"|\\")(?P<responseCode>[^"]*)(?:"|\\").*methodOfPayment=(?:"|\\")(?P<methodOfPayment>[^"]*)(?:"|\\").*paymentDirection=(?:"|\\")(?P<paymentDirection>[^"]*)(?:"|\\").*productCode=(?:"|\\")(?P<productCode>[^"]*)(?:"|\\").*accountNo=(?:"|\\")(?P<accountNo>[^"]*)(?:"|\\").*currency=(?:"|\\")(?P<currency>[^"]*)(?:"|\\").*customerNo=(?:"|\\")(?P<customerNo>[^"]*)(?:"|\\")'
+              expression: '.*origMethodOfPayment=(?:"|\\")(?P<origMethodOfPayment>[^"]*)(?:"|\\").*methodOfPayment=(?:"|\\")(?P<methodOfPayment>[^"]*)(?:"|\\").*responseCode=(?:"|\\")(?P<responseCode>[^"]*)(?:"|\\").*accountNo=(?:"|\\")(?P<accountNo>[^"]*)(?:"|\\").*bban=(?:"|\\")(?P<bban>[^"]*)(?:"|\\").*currency=(?:"|\\")(?P<currency>[^"]*)(?:"|\\").*iban=(?:"|\\")(?P<iban>[^"]*)(?:"|\\").*residencyFlag=(?:"|\\")(?P<residencyFlag>[^"]*)(?:"|\\").*coreBankIdentifier=(?:"|\\")(?P<coreBankIdentifier>[^"]*)(?:"|\\").*bicfi=(?:"|\\")(?P<bicfi>[^"]*)(?:"|\\").*amount=(?:"|\\")(?P<amount>[^"]*)(?:"|\\").*account=(?:"|\\")(?P<account>[^"]*)(?:"|\\")'
               action: keep
           - labels:
               loglevel:
@@ -35,16 +35,18 @@ promtail:
               severity:
               url:
               # Adapter response fields
-              requestingSystemId:
-              externalReferenceId:
-              coreBankingRefId:
-              responseCode:
+              origMethodOfPayment:
               methodOfPayment:
-              paymentDirection:
-              productCode:
+              responseCode:
               accountNo:
+              bban:
               currency:
-              customerNo:
+              iban:
+              residencyFlag:
+              coreBankIdentifier:
+              bicfi:
+              amount:
+              account:
         kubernetes_sd_configs:
           - role: pod
         relabel_configs:
