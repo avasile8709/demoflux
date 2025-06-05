@@ -12,7 +12,8 @@ promtail:
           - json:
               expressions:
                 message: message
-                loglevel: loglevel
+                level: level
+                loglevel: logLevel
           - regex:
               expression: '(?i).*\[(?P<loglevel>info|warn(?:ing)?|error|debug|severe|finest|audit|fine)\s*\].*'
               action: keep
@@ -26,6 +27,7 @@ promtail:
               expression: '.*origMethodOfPayment=(?:"|\\")(?P<origMethodOfPayment>[^"]*)(?:"|\\").*methodOfPayment=(?:"|\\")(?P<methodOfPayment>[^"]*)(?:"|\\").*responseCode=(?:"|\\")(?P<responseCode>[^"]*)(?:"|\\").*accountNo=(?:"|\\")(?P<accountNo>[^"]*)(?:"|\\").*bban=(?:"|\\")(?P<bban>[^"]*)(?:"|\\").*currency=(?:"|\\")(?P<currency>[^"]*)(?:"|\\").*iban=(?:"|\\")(?P<iban>[^"]*)(?:"|\\").*residencyFlag=(?:"|\\")(?P<residencyFlag>[^"]*)(?:"|\\").*coreBankIdentifier=(?:"|\\")(?P<coreBankIdentifier>[^"]*)(?:"|\\").*bicfi=(?:"|\\")(?P<bicfi>[^"]*)(?:"|\\").*amount=(?:"|\\")(?P<amount>[^"]*)(?:"|\\").*account=(?:"|\\")(?P<account>[^"]*)(?:"|\\")'
               action: keep
           - labels:
+              level:
               loglevel:
               statusCode:
               httpMethod:
