@@ -1,3 +1,5 @@
+requestEntries=\"{}\", statusCode=\"400\", serviceName=\"createCurrencyGroup\", 
+
 4 errors: rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``; rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``; rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``; rpc error: code = Code(400) desc = parse error : stage '|~ "status\\\":500\\"' : error parsing regexp: trailing backslash at end of expression: ``
 
 sum(count_over_time({namespace="sit", pod=~"rbicbis-cloud-deployment.*"} |~ `status\":500\` [5m]))
