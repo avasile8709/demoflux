@@ -1,0 +1,33 @@
+andvas@m026vaand:/mnt/c/Users/t026vaand/repo/infrastructure-kubernetes$ argocd app get prometheus-test
+WARN[0000] Failed to invoke grpc call. Use flag --grpc-web in grpc calls. To avoid this warning message, use flag --grpc-web. 
+WARN[0002] Failed to invoke grpc call. Use flag --grpc-web in grpc calls. To avoid this warning message, use flag --grpc-web. 
+Name:               argocd/prometheus-test
+Project:            infrastructure
+Server:             https://10.241.125.70:6443
+Namespace:          monitoring
+URL:                https://argocd.mgmt.crisp.rbro.rbg.cc/applications/prometheus-test
+Source:
+- Repo:             https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git
+  Target:           main
+  Path:             prometheus/instances/test
+  Helm Values:      values.yaml,test-values.yaml
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        Synced to main (098e666)
+Health Status:      Healthy
+
+CONDITION                MESSAGE                                                                                                                 LAST TRANSITION
+RepeatedResourceWarning  Resource rbac.authorization.k8s.io/ClusterRole//prometheus-test-promtail appeared 2 times among application resources.  2025-05-04 01:20:05 +0300 EES
+
+andvas@m026vaand:/mnt/c/Users/t026vaand/repo/infrastructure-kubernetes$ argocd app get prometheus-test  | grep promtail
+WARN[0000] Failed to invoke grpc call. Use flag --grpc-web in grpc calls. To avoid this warning message, use flag --grpc-web. 
+WARN[0002] Failed to invoke grpc call. Use flag --grpc-web in grpc calls. To avoid this warning message, use flag --grpc-web. 
+RepeatedResourceWarning  Resource rbac.authorization.k8s.io/ClusterRole//prometheus-test-promtail appeared 2 times among application resources.  2025-05-04 01:20:05 +0300 EEST
+                              ServiceAccount                  monitoring   prometheus-test-promtail                                         Synced                        serviceaccount/prometheus-test-promtail serverside-applied
+                              Secret                          monitoring   prometheus-test-promtail                                         Synced                        secret/prometheus-test-promtail serverside-applied
+rbac.authorization.k8s.io     ClusterRole                     monitoring   prometheus-test-promtail                                         Succeeded  Synced             clusterrole.rbac.authorization.k8s.io/prometheus-test-promtail reconciled. clusterrole.rbac.authorization.k8s.io/prometheus-test-promtail serverside-applied
+rbac.authorization.k8s.io     ClusterRoleBinding              monitoring   prometheus-test-promtail                                         Succeeded  Synced             clusterrolebinding.rbac.authorization.k8s.io/prometheus-test-promtail reconciled. clusterrolebinding.rbac.authorization.k8s.io/prometheus-test-promtail serverside-applied
+apps                          DaemonSet                       monitoring   prometheus-test-promtail                                         Synced     Healthy            daemonset.apps/prometheus-test-promtail serverside-applied
+monitoring.coreos.com         PodMonitor                      monitoring   prometheus-test-promtail                                         Synced                        podmonitor.monitoring.coreos.com/prometheus-test-promtail serverside-applied
+rbac.authorization.k8s.io     ClusterRole                                  prometheus-test-promtail                                         Synced
+rbac.authorization.k8s.io     ClusterRoleBinding                           prometheus-test-promtail                                         Synced
