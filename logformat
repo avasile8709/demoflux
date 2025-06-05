@@ -1,3 +1,8 @@
+g.cc
+pod=rbifxs-fxs-rbi-a-1-658669bc58-jhxbs
+[2025-06-04 15:31:25,593] [INFO ] [] [c.c.n.t.e.i.T.RequestProcessed] [] - Http request user="UserPrincipal: {subject: [bd81dfdb-52e3-44fe-8ce1-f59335cfc80a], roles: [fxconsumer], }", httpMethod="GET", requestURI="/fxs/v1/indicative-rates", baseURI="https://rbifxs-cloud.sit.crisp.rbro.rbg.cc", requestHeaders="{}", requestEntries="{}", statusCode="200", serviceName="getIndicativeRate", responseTime="2ms", responseMessage="", contentLength="154", severity="INFO", uuid="ab210e76-f705-47e6-9567-98c8d9e3186f", code="RequestProcessed" producer=com.clear2pay.na.rest.server.internal.logging.LoggingFilter
+
+
 2025-06-05 14:53:14.928	
 {
   "sequenceNumber": 0,
