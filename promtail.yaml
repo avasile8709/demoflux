@@ -11,11 +11,40 @@ promtail:
           - cri: {}
           - json:
               expressions:
+                message: message
                 loglevel: loglevel
           - regex:
-              expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+              expression: '(?i).*\[(?P<loglevel>info|warn(?:ing)?|error|debug|severe|finest|audit|fine)\s*\].*'
+              action: keep
+          - template:
+              source: message
+              template: '{{ .message }}'
+          - regex:
+              expression: '.*httpMethod=(?:"|\\")(?P<httpMethod>[^"]*)(?:"|\\").*requestURI=(?:"|\\")(?P<requestURI>[^"]*)(?:"|\\").*statusCode=(?:"|\\")(?P<statusCode>[^"]*)(?:"|\\").*serviceName=(?:"|\\")(?P<serviceName>[^"]*)(?:"|\\").*responseTime=(?:"|\\")(?P<responseTime>[0-9]+)ms(?:"|\\").*severity=(?:"|\\")(?P<severity>[^"]*)(?:"|\\").*url=(?:"|\\")(?P<url>[^"]*)(?:"|\\")'
+              action: keep
+          - regex:
+              expression: '.*requestingSystemId=(?:"|\\")(?P<requestingSystemId>[^"]*)(?:"|\\").*externalReferenceIdentification=(?:"|\\")(?P<externalReferenceId>[^"]*)(?:"|\\").*coreBankingReferenceIdentification=(?:"|\\")(?P<coreBankingRefId>[^"]*)(?:"|\\").*responseCode=(?:"|\\")(?P<responseCode>[^"]*)(?:"|\\").*methodOfPayment=(?:"|\\")(?P<methodOfPayment>[^"]*)(?:"|\\").*paymentDirection=(?:"|\\")(?P<paymentDirection>[^"]*)(?:"|\\").*productCode=(?:"|\\")(?P<productCode>[^"]*)(?:"|\\").*accountNo=(?:"|\\")(?P<accountNo>[^"]*)(?:"|\\").*currency=(?:"|\\")(?P<currency>[^"]*)(?:"|\\").*customerNo=(?:"|\\")(?P<customerNo>[^"]*)(?:"|\\")'
+              action: keep
           - labels:
               loglevel:
+              statusCode:
+              httpMethod:
+              requestURI:
+              serviceName:
+              responseTime:
+              severity:
+              url:
+              # Adapter response fields
+              requestingSystemId:
+              externalReferenceId:
+              coreBankingRefId:
+              responseCode:
+              methodOfPayment:
+              paymentDirection:
+              productCode:
+              accountNo:
+              currency:
+              customerNo:
         kubernetes_sd_configs:
           - role: pod
         relabel_configs:

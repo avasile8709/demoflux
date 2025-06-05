@@ -15,11 +15,33 @@ promtail:
           - cri: {}
           - json:
               expressions:
-                loglevel: loglevel
+                level: level
+                timestamp: timestamp
+                threadName: threadName
+                loggerName: loggerName
+                message: message
+                requestId: requestId
+                uuid: uuid
+                code: code
+                producer: producer
+                url: url
+                httpMethod: httpMethod
+                statusCode: statusCode
+                contentLength: contentLength
+                severity: severity
           - regex:
               expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+          - regex:
+              expression: '.*"(?P<method>GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD) (?P<path>/[^"]*) HTTP/[0-9.]+" (?P<status_code>[0-9]{3})'
           - labels:
-              loglevel:
+              level:
+              statusCode:
+              httpMethod:
+              requestId:
+              uuid:
+              code:
+              producer:
+              severity:
         relabel_configs:
           - source_labels: [__meta_kubernetes_pod_phase]
             action: drop
@@ -46,8 +68,13 @@ promtail:
                 loglevel: loglevel
           - regex:
               expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+          - regex:
+              expression: '.*"(?P<method>GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD) (?P<path>/[^"]*) HTTP/[0-9.]+" (?P<status_code>[0-9]{3})'
           - labels:
               loglevel:
+              method:
+              path:
+              status_code:
         kubernetes_sd_configs:
           - role: pod
         relabel_configs:
@@ -82,11 +109,35 @@ promtail:
         - cri: {}
         - json:
             expressions:
-              loglevel: loglevel
+              level: level
+              timestamp: timestamp
+              threadName: threadName
+              loggerName: loggerName
+              message: message
+              requestId: requestId
+              uuid: uuid
+              code: code
+              producer: producer
+              url: url
+              httpMethod: httpMethod
+              statusCode: statusCode
+              contentLength: contentLength
+              severity: severity
         - regex:
             expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+            expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
+        - regex:
+            expression: '.*"(?P<method>GET|POST|PUT|DELETE|PATCH|OPTIONS|HEAD) (?P<path>/[^"]*) HTTP/[0-9.]+" (?P<status_code>[0-9]{3})'
         - labels:
-            loglevel:
+            level:
+            url:
+            statusCode:
+            httpMethod:
+            requestId:
+            uuid:
+            code:
+            producer:
+            severity:
   nodeSelector:
     kubernetes.io/os: linux
 
@@ -135,15 +186,38 @@ promtail:
     scrape_configs:
       - job_name: kubernetes-pods
         kubernetes_sd_configs:
-          # your existing kubernetes_sd_configs here
-    snippets:
-      pipelineStages:
-        - cri: {}
-        - json:
-            expressions:
-              loglevel: loglevel
-        - regex:
-            expression: '.*\[(?P<loglevel>INFO|WARN|ERROR|DEBUG|SEVERE|AUDIT|FINE)\s*\].*'
-            expression: '.*\[(?P<loglevel>INFO|WARN|WARNING|ERROR|DEBUG|SEVERE|FINEST|AUDIT|FINE)\s*\].*'
-        - labels:
-            loglevel:
+          - role: pod
+        pipeline_stages:
+          - cri: {}
+          - json:
+              expressions:
+                level: level
+                timestamp: timestamp
+                threadName: threadName
+                loggerName: loggerName
+                message: message
+                requestId: requestId
+                uuid: uuid
+                code: code
+                producer: producer
+          - template:
+              source: message
+              template: '{{ .message }}'
+          - regex:
+              expression: '.*url="(?P<url>[^"]*)".*httpMethod="(?P<httpMethod>[^"]*)".*statusCode="(?P<statusCode>[^"]*)".*contentLength="(?P<contentLength>[^"]*)".*severity="(?P<severity>[^"]*)"'
+          - labels:
+              level:
+              statusCode:
+              httpMethod:
+              requestId:
+              uuid:
+              code:
+              producer:
+              severity:
+              url:
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_phase]
+            action: drop
+            regex: "Succeeded|Failed"
+  nodeSelector:
+    kubernetes.io/os: linux
