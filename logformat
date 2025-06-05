@@ -19,3 +19,64 @@ pod=rbifxs-fxs-rbi-a-1-658669bc58-jhxbs
   "mdc": {},
   "message": "HTTP Response sent. content=\"{\\\"propertyValues\\\":[]}\", headers=\"{Set-Cookie=rememberMe=deleteMe; Path=/; Max-Age=0; Expires=Wed, 04-Jun-2025 11:53:14 GMT; SameSite=lax, uuid=738edc87-dee1-4fa9-becf-0b668f287dfd, Content-Type=[application/json], Strict-Transport-Security=[max-age=31536000; includeSubDomains], Access-Control-Allow-Credentials=[true], Access-Control-Allow-Methods=[GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH], Access-Control-Allow-Headers=[origin, content-type, accept, authorization, idempotency_key], Access-Control-Allow-Origin=[*]}\", timestamp=\"2025-06-05T11:53:14.927518496Z\", url=\"https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/property-values\", httpMethod=\"POST\", statusCode=\"200\", contentLength=\"21\", requestId=\"4caf125017c42e7bc4f8eb4754ec36d6\", severity=\"DEBUG\", uuid=\"f6d9072d-c394-45a5-adec-7b53be88511e\", code=\"HttpResponseSent\" producer=HttpResponseLoggingFilter",
   "throwable": null
+
+
+
+
+	
+{
+  "sequenceNumber": 0,
+  "timestamp": 1749124395197,
+  "nanoseconds": 197889337,
+  "level": "INFO",
+  "threadName": "CasCluster-internalProvider-db-jdbc-dispatcher-4486",
+  "loggerName": "com.clear2pay.na.technical.events.internal.TechnicalEventLogger.RequestProcessed",
+  "context": {
+    "name": "default",
+    "birthdate": 1749090428576,
+    "properties": {}
+  },
+  "mdc": {},
+  "message": "Http request user=\"UserPrincipal: {subject: [477445ac-6376-4123-b95e-23836fa66554], roles: [administrator,consumer], }\", httpMethod=\"POST\", requestURI=\"/cas/v1/property-values\", baseURI=\"https://rbicas-cloud.sit.crisp.rbro.rbg.cc\", requestHeaders=\"{}\", requestEntries=\"{}\", statusCode=\"200\", serviceName=\"providePropertyValues\", responseTime=\"6ms\", responseMessage=\"\", contentLength=\"21\", severity=\"INFO\", uuid=\"3e14a57e-80d9-460f-8183-22ea12a8e9ad\", code=\"RequestProcessed\" producer=com.clear2pay.na.rest.server.internal.logging.LoggingFilter",
+  "throwable": null
+
+
+
+
+
+2025-06-05 15:19:33.525	
+{
+  "type": "liberty_trace",
+  "host": "rbicbis-cloud-deployment-5fbff56b44-z2mm4",
+  "ibm_userDir": "/opt/ol/wlp/usr/",
+  "ibm_serverName": "defaultServer",
+  "message": "com.clear2pay.bph.cbis.adapter.request.AdapterRequestResponseLogger.logPAEResponse(AdapterRequestResponseLogger.java:96) <<<<<<<< ADAPTER Raiffeisen_Bank_Hungary.RealTimeHungary PostAccountingEntries RESPONSE:\n{\n  \"entryResponses\" : [ {\n    \"requestingSystemId\" : \"XCT\",\n    \"externalReferenceIdentification\" : \"XCT/GqHUEt_qRUCB1Zc9Y2gfFw/30/1\",\n    \"coreBankingReferenceIdentification\" : \"17f6300e-d0e5-1ad9-bceb-0004ac1ec325\",\n    \"responseCode\" : \"SUCCESS\",\n    \"eligibilityStartDateTime\" : \"2025-06-05T12:19:33.000Z\",\n    \"eligibilityEndDateTime\" : \"2025-06-05T12:19:33.000Z\",\n    \"accountStatus\" : \"STOP\",\n    \"accountStatusDateTime\" : \"2004-05-14T22:01:53.000Z\",\n    \"extensions\" : [ {\n      \"classLevel\" : \"Group\",\n      \"extension\" : {\n        \"paymentAndAccountEntries\" : [ {\n          \"context\" : \"paymentData\",\n          \"fxPriority\" : \"T1\",\n          \"localReferenceInx\" : \"OLD25FFI000Q\",\n          \"localReferenceTrx\" : \"OLD25FFI000Q\",\n          \"methodOfPayment\" : \"SWIFT\",\n          \"nsfRetries\" : \"NSFD3\",\n          \"origMethodOfPayment\" : \"FEEDER\",\n          \"paymentDirection\" : \"O\",\n          \"productCode\" : \"DEFHU\",\n          \"rbiPriority\" : \"P1\",\n          \"schema\" : \"urn:rbi:suppl:payment:data:ext:0.0.13\",\n          \"source\" : \"EL\"\n        }, {\n          \"accountNo\" : \"0100105099006\",\n          \"accountType\" : \"CST\",\n          \"bban\" : \"120010080010509900600008\",\n          \"cbsId\" : \"EQ\",\n          \"context\" : \"debtorAccount\",\n          \"currency\" : \"EUR\",\n          \"customerCategory\" : \"FINST\",\n          \"customerCountryBirth\" : \"HU\",\n          \"customerName\" : \"J.C.NECKERMANN ZRT. XXXX\",\n          \"customerNationality\" : \"HU\",\n          \"customerNo\" : \"105099\",\n          \"customerType\" : \"CU\",\n          \"employeeFlag\" : \"N\",\n          \"iban\" : \"HU43120010080010509900600008\",\n          \"residencyFlag\" : \"Y\",\n          \"schema\" : \"schema.urn:rbi:suppl:payment:data:ext:0.0.11\",\n          \"source\" : \"EQ\"\n        } ]\n      }\n    } ]\n  } ]\n} [cbis_uuid=56dca94e-837d-4f03-b80a-f086599f045f, origin=PROCESS_ACCOUNT_ELIGIBILITY_INSTRUCTION_V33, accountingInstructionKey=null]",
+  "ibm_threadId": "00041f00",
+  "ibm_datetime": "2025-06-05T12:19:33.525+0000",
+  "module": "com.clear2pay.bph.cbis.adapter.request.AdapterRequestResponseLogger",
+  "loglevel": "FINE",
+  "ibm_methodName": "unknown",
+  "ibm_className": "com.clear2pay.bph.cbis.adapter.request.AdapterRequestResponseLogger",
+  "ibm_sequence": "1749125973525_0000000003F6F",
+  "ext_appName": "CBISRIServicesIlmEAR",
+  "ext_thread": "ThreadPoolExecutor-thread-260388"
+
+
+
+2025-06-05 15:19:33.525	
+{
+  "type": "liberty_trace",
+  "host": "rbicbis-cloud-deployment-5fbff56b44-z2mm4",
+  "ibm_userDir": "/opt/ol/wlp/usr/",
+  "ibm_serverName": "defaultServer",
+  "message": "com.clear2pay.bph.cbis.adapter.request.AdapterRequestResponseLogger.logPAEResponse(AdapterRequestResponseLogger.java:96) <<<<<<<< ADAPTER Raiffeisen_Bank_Hungary.RealTimeHungary PostAccountingEntries RESPONSE:\n{\n  \"entryResponses\" : [ {\n    \"requestingSystemId\" : \"XCT\",\n    \"externalReferenceIdentification\" : \"XCT/GqHUEt_qRUCB1Zc9Y2gfFw/30/1\",\n    \"coreBankingReferenceIdentification\" : \"17f6300e-d0e5-1ad9-bceb-0004ac1ec325\",\n    \"responseCode\" : \"SUCCESS\",\n    \"eligibilityStartDateTime\" : \"2025-06-05T12:19:33.000Z\",\n    \"eligibilityEndDateTime\" : \"2025-06-05T12:19:33.000Z\",\n    \"accountStatus\" : \"STOP\",\n    \"accountStatusDateTime\" : \"2004-05-14T22:01:53.000Z\",\n    \"extensions\" : [ {\n      \"classLevel\" : \"Group\",\n      \"extension\" : {\n        \"paymentAndAccountEntries\" : [ {\n          \"context\" : \"paymentData\",\n          \"fxPriority\" : \"T1\",\n          \"localReferenceInx\" : \"OLD25FFI000Q\",\n          \"localReferenceTrx\" : \"OLD25FFI000Q\",\n          \"methodOfPayment\" : \"SWIFT\",\n          \"nsfRetries\" : \"NSFD3\",\n          \"origMethodOfPayment\" : \"FEEDER\",\n          \"paymentDirection\" : \"O\",\n          \"productCode\" : \"DEFHU\",\n          \"rbiPriority\" : \"P1\",\n          \"schema\" : \"urn:rbi:suppl:payment:data:ext:0.0.13\",\n          \"source\" : \"EL\"\n        }, {\n          \"accountNo\" : \"0100105099006\",\n          \"accountType\" : \"CST\",\n          \"bban\" : \"120010080010509900600008\",\n          \"cbsId\" : \"EQ\",\n          \"context\" : \"debtorAccount\",\n          \"currency\" : \"EUR\",\n          \"customerCategory\" : \"FINST\",\n          \"customerCountryBirth\" : \"HU\",\n          \"customerName\" : \"J.C.NECKERMANN ZRT. XXXX\",\n          \"customerNationality\" : \"HU\",\n          \"customerNo\" : \"105099\",\n          \"customerType\" : \"CU\",\n          \"employeeFlag\" : \"N\",\n          \"iban\" : \"HU43120010080010509900600008\",\n          \"residencyFlag\" : \"Y\",\n          \"schema\" : \"schema.urn:rbi:suppl:payment:data:ext:0.0.11\",\n          \"source\" : \"EQ\"\n        } ]\n      }\n    } ]\n  } ]\n} [cbis_uuid=56dca94e-837d-4f03-b80a-f086599f045f, origin=PROCESS_ACCOUNT_ELIGIBILITY_INSTRUCTION_V33, accountingInstructionKey=null]",
+  "ibm_threadId": "00041f00",
+  "ibm_datetime": "2025-06-05T12:19:33.525+0000",
+  "module": "com.clear2pay.bph.cbis.adapter.request.AdapterRequestResponseLogger",
+  "loglevel": "FINE",
+  "ibm_methodName": "unknown",
+  "ibm_className": "com.clear2pay.bph.cbis.adapter.request.AdapterRequestResponseLogger",
+  "ibm_sequence": "1749125973525_0000000003F6F",
+  "ext_appName": "CBISRIServicesIlmEAR",
+  "ext_thread": "ThreadPoolExecutor-thread-260388"
+}
