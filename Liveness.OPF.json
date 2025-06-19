@@ -1,0 +1,730 @@
+{
+	"info": {
+		"_postman_id": "30e8ebbe-6953-4b83-8507-b644e30cc0db",
+		"name": "Liveness",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34476546"
+	},
+	"item": [
+		{
+			"name": "POM liveness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/liveness",
+					"protocol": "https",
+					"host": [
+						"rbipom-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"pom-sct",
+						"v1",
+						"pod",
+						"liveness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POM readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness",
+					"protocol": "https",
+					"host": [
+						"rbipom-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"pom-sct",
+						"v1",
+						"pod",
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FXS liveness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbifxs-cloud.sit.crisp.rbro.rbg.cc/fxs/v1/pod/liveness",
+					"protocol": "https",
+					"host": [
+						"rbifxs-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"fxs",
+						"v1",
+						"pod",
+						"liveness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PCS liveness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbifxs-cloud.sit.crisp.rbro.rbg.cc/fxs/v1/pod/liveness",
+					"protocol": "https",
+					"host": [
+						"rbifxs-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"fxs",
+						"v1",
+						"pod",
+						"liveness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CAS liveness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/liveness",
+					"protocol": "https",
+					"host": [
+						"rbicas-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"cas",
+						"v1",
+						"pod",
+						"liveness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FSIS liveness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/liveness",
+					"protocol": "https",
+					"host": [
+						"rbifsis-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"fsis",
+						"v1",
+						"pod",
+						"liveness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FXS readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbifxs-cloud.sit.crisp.rbro.rbg.cc/fxs/v1/pod/readiness",
+					"protocol": "https",
+					"host": [
+						"rbifxs-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"fxs",
+						"v1",
+						"pod",
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PCS readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness",
+					"protocol": "https",
+					"host": [
+						"rbipcs-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"pcs",
+						"v1",
+						"pod",
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CAS readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/readiness",
+					"protocol": "https",
+					"host": [
+						"rbicas-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"cas",
+						"v1",
+						"pod",
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FSIS readiness",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/readiness",
+					"protocol": "https",
+					"host": [
+						"rbifsis-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"fsis",
+						"v1",
+						"pod",
+						"readiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "XCT readiness",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "https://keycloak.test.crisp.rbro.rbg.cc/realms/crisp-int/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "ZXmpZqaJ8VVtihSt16tktPszWMBnXkJp",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "fis-admin-client",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "idp - pingfederate",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://bbr5lopsk8sm02.clear2pay.com/qa-rbisepa-01/keycloak/auth/realms/sepasso/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready",
+					"protocol": "https",
+					"host": [
+						"rbixct-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"xctrest",
+						"webapi",
+						"v1",
+						"probes",
+						"ready"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEPA readiness",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "https://keycloak.test.crisp.rbro.rbg.cc/realms/crisp-int/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "ZXmpZqaJ8VVtihSt16tktPszWMBnXkJp",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "fis-admin-client",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "idp - pingfederate",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://bbr5lopsk8sm02.clear2pay.com/qa-rbisepa-01/keycloak/auth/realms/sepasso/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbisepa-cloud.sit.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready",
+					"protocol": "https",
+					"host": [
+						"rbisepa-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"opfrest",
+						"webapi",
+						"v1",
+						"probes",
+						"ready"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CBIS readiness",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "https://keycloak.test.crisp.rbro.rbg.cc/realms/crisp-int/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "ZXmpZqaJ8VVtihSt16tktPszWMBnXkJp",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "fis-admin-client",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "idp - pingfederate",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://bbr5lopsk8sm02.clear2pay.com/qa-rbisepa-01/keycloak/auth/realms/sepasso/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbicbis-cloud.sit.crisp.rbro.rbg.cc/cbis/api/operations/v4/healthunsecured",
+					"protocol": "https",
+					"host": [
+						"rbicbis-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"cbis",
+						"api",
+						"operations",
+						"v4",
+						"healthunsecured"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "XCT liveness",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "https://keycloak.test.crisp.rbro.rbg.cc/realms/crisp-int/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "ZXmpZqaJ8VVtihSt16tktPszWMBnXkJp",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "fis-admin-client",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "idp - pingfederate",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://bbr5lopsk8sm02.clear2pay.com/qa-rbisepa-01/keycloak/auth/realms/sepasso/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/alive",
+					"protocol": "https",
+					"host": [
+						"rbixct-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"xctrest",
+						"webapi",
+						"v1",
+						"probes",
+						"alive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEPA liveness",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessTokenUrl",
+							"value": "https://keycloak.test.crisp.rbro.rbg.cc/realms/crisp-int/protocol/openid-connect/token",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "clientSecret",
+							"value": "ZXmpZqaJ8VVtihSt16tktPszWMBnXkJp",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "fis-admin-client",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "idp - pingfederate",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://bbr5lopsk8sm02.clear2pay.com/qa-rbisepa-01/keycloak/auth/realms/sepasso/protocol/openid-connect/auth",
+							"type": "string"
+						},
+						{
+							"key": "useBrowser",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/alive",
+					"protocol": "https",
+					"host": [
+						"rbixct-cloud",
+						"sit",
+						"crisp",
+						"rbro",
+						"rbg",
+						"cc"
+					],
+					"path": [
+						"xctrest",
+						"webapi",
+						"v1",
+						"probes",
+						"alive"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
