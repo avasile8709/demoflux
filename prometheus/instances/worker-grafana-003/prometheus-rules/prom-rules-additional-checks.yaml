@@ -1,0 +1,116 @@
+- name: additional-pod-health-checks.crisp-rules
+  rules:
+  - alert: DockerImagePullIssue
+    expr: |
+      (kube_pod_container_status_waiting_reason{reason="ImagePullBackOff"} > 0)
+      or
+      (kube_pod_container_status_waiting_reason{reason="ErrImagePull"} > 0)
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Docker image pull issue detected ({{ $labels.pod }})"
+      description: |
+        Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is experiencing image pull issues. 
+        The issue is due to: {{ $labels.reason }}. Check if the image exists or if there is a network issue.
+  - alert: LongHangingPods
+    expr: |
+      sum by (namespace, pod) (
+        kube_pod_status_phase{phase=~"Pending|Failed"}
+        unless
+        kube_pod_container_status_waiting_reason{reason=~"ImagePullBackOff|ErrImagePull"}
+      ) > 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is hanging"
+      description: |
+        Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has been in a {{ $labels.phase }} state for more than 5 minutes, excluding ImagePullBackOff and ErrImagePull. Investigate other issues like resource requests, node capacity, or scheduling constraints.
+  - alert: ConstantlyFailingPods
+    expr: |
+      rate(kube_pod_container_status_restarts_total[5m]) > 0.1
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is constantly failing"
+      description: |
+        Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is failing repeatedly with a restart rate of {{ $value }} restarts per second in the last 5 minutes. Investigate the issue immediately.
+  - alert: HighFailingPodsPercentage
+    expr: |
+      sum by (namespace) (
+        kube_pod_status_phase{phase="Failed"}
+      )
+      /
+      sum by (namespace) (
+        kube_pod_status_phase
+      )
+      > 0.3
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High percentage of failing pods in namespace {{ $labels.namespace }}"
+      description: |
+        More than 30% of pods in the namespace {{ $labels.namespace }} are failing. 
+        Investigate resource constraints, application errors, or scheduling issues.
+  - alert: PodRestartCountExceeded
+    expr: |
+      sum by (namespace, pod) (
+        kube_pod_container_status_restarts_total{namespace!~"kube-system|monitoring|default"}
+      ) > 3
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has restarted more than 3 times"
+      description: |
+        Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has restarted {{ $value }} times across all namespaces.
+        Investigate the cause of frequent restarts, such as application crashes, OOMKills, or resource limits.
+  - alert: PodEvicted
+    expr: |
+      sum by (namespace, pod) (
+        kube_pod_status_phase{phase="Failed"}
+        and
+        kube_pod_container_status_waiting_reason{reason="Evicted"}
+      ) > 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} was evicted"
+      description: |
+        Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} was evicted. Check node capacity or resource requests and limits.
+  - alert: PodsWithFailedContainers
+    expr: |
+      count by (namespace, pod) (
+        kube_pod_container_status_terminated_reason{reason="Error", pod!~"k8s-pod-aks.*"} > 0
+      ) > 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has one or more failed containers"
+      description: |
+        Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has at least one container in Error state.
+        Check the container logs and pod events for more details.
+
+- name: additional-kubernetes-checks.crisp-rules
+  rules:
+  - alert: NodeWarningsOrErrors
+    expr: |
+      sum by (involved_object_name, reason) (
+        kube_event{
+          involved_object_kind="Node",
+          type=~"Warning|Error"
+        }
+      ) > 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Node {{ $labels.involved_object_name }} has warnings or errors"
+      description: |
+        Node {{ $labels.involved_object_name }} is experiencing events of type {{ $labels.type }} due to {{ $labels.reason }}.
+        Check Kubernetes events for further details.

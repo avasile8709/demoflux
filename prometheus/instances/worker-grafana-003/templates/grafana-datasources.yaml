@@ -1,0 +1,17 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+{{ range $path, $_ :=  .Files.Glob  "grafana.datasources/*.yaml" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $.Release.Name }}-grafana-datasources-{{ base $path | lower | trimSuffix ".yaml" | replace "_" "-" | replace " " "-" }}
+  labels:
+    grafana_datasource: "1"
+data:
+  {{ base $path |lower | replace "_" "-" | replace " " "-" }}: |
+    apiVersion: 1
+    datasources:
+{{ $.Files.Get $path |indent 4 }}
+{{ end }}
+{{ end }}

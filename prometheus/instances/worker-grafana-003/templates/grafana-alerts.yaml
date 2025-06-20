@@ -1,0 +1,15 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+{{ range $path, $_ :=  .Files.Glob  "grafana.alerts/*.yaml" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'crisp-{{ base $path | lower | trimSuffix ".yaml" | replace "_" "-" | replace " " "-" }}'
+  labels:
+    grafanaalert: "1"
+data:
+  {{ base $path |lower | replace "_" "-" | replace " " "-" | quote }}: |
+{{ $.Files.Get $path |indent 4 }}
+{{ end }}
+{{ end }}

@@ -1,0 +1,229 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 21,
+    "links": [],
+    "panels": [
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 75
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.3.0",
+        "targets": [
+          {
+            "editorMode": "code",
+            "expr": "100 * (1 - (node_filesystem_avail_bytes{mountpoint=~\"$pvc\"} / node_filesystem_size_bytes{mountpoint=~\"$pvc\"}))",
+            "legendFormat": "node {{instance}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Selected PVC Disk Usage (%)",
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 24,
+          "x": 0,
+          "y": 7
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "11.3.0",
+        "targets": [
+          {
+            "expr": "100 * (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes))",
+            "refId": "B"
+          }
+        ],
+        "title": "PVC Usage by Mountpoint",
+        "type": "timeseries"
+      }
+    ],
+    "preload": false,
+    "refresh": "5m",
+    "schemaVersion": 40,
+    "tags": [
+      "Crisp- DevOps",
+      "Kubernetes",
+      "Prometheus"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "text": "Mgmt",
+            "value": "1111"
+          },
+          "name": "datasource",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "type": "datasource"
+        },
+        {
+          "current": {
+            "text": "/local",
+            "value": "/local"
+          },
+          "datasource": "${datasource}",
+          "definition": "label_values(node_filesystem_avail_bytes,mountpoint)",
+          "label": "PVC Mountpoint",
+          "name": "pvc",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(node_filesystem_avail_bytes,mountpoint)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 2,
+          "regex": "/^(?!\\/run).*//",
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "K8S / PVC Disk Usage",
+    "uid": "aely8otw1qf40b",
+    "version": 12,
+    "weekStart": ""
+  }

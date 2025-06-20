@@ -1,0 +1,11 @@
+name: jenkins-alerts-nologs
+interval: 1m
+rules:
+  - alert: JenkinsNoLogs
+    expr: absent_over_time({job="jenkins"}[5m])
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "No logs from Jenkins."
+      description: "Jenkins has not produced logs for the past 5 minutes."

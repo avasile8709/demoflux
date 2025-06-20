@@ -1,0 +1,11 @@
+name: jenkins-alerts-configchange
+interval: 1m
+rules:
+  - alert: JenkinsConfigChange
+    expr: sum(rate({job="jenkins"} |= "CONFIG_CHANGED" [5m])) by (user) > 0
+    for: 1m
+    labels:
+      severity: info
+    annotations:
+      summary: "Jenkins configuration change detected."
+      description: "Jenkins configuration was changed by user {{ $labels.user }}."

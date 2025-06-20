@@ -1,0 +1,11 @@
+name: jenkins-alerts-buildfailures
+interval: 1m
+rules:
+  - alert: JenkinsBuildFailures
+    expr: sum(rate({job="jenkins"} |= "Finished: FAILURE" [5m])) by (job) > 3
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Frequent build failures detected in Jenkins."
+      description: "More than 3 Jenkins builds failed in the last 5 minutes."

@@ -1,0 +1,20 @@
+{{- $prometheus := index .Values "kube-prometheus-stack" "prometheus" "enabled"|default false -}}
+{{- if $prometheus }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-admission-binding
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  labels:
+    app: kube-prometheus-stack-admission
+subjects:
+- kind: ServiceAccount
+  name: {{ .Release.Name }}-admission
+  namespace: monitoring
+roleRef:
+  kind: ClusterRole
+  name: {{ .Release.Name }}-admission
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

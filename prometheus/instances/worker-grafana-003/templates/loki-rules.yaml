@@ -1,0 +1,29 @@
+{{- $loki := index .Values "loki" "enabled"|default false -}}
+{{- if $loki }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-loki-alert-rules
+  labels:
+    app: loki-stack
+data:
+{{- range $path, $_ := .Files.Glob "loki-rules/default/*.yaml" }}
+  {{ base $path }}: |
+{{ $.Files.Get $path | indent 4 }}
+{{- end }}
+{{- end }}
+---
+{{- $jenkins := index .Values "monitor" "jenkins" "enabled"|default false -}}
+{{- if and $loki $jenkins }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-loki-alert-rules-jenkins
+  labels:
+    app: loki-stack
+data:
+{{- range $path, $_ := .Files.Glob "loki-rules/jenkins/*.yaml" }}
+  {{ base $path }}: |
+{{ $.Files.Get $path | indent 4 }}
+{{- end }}
+{{- end }}

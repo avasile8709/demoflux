@@ -1,0 +1,44 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-grafana-ds-updater
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook": post-install,post-upgrade
+spec:
+  schedule: "*/5 * * * *"  # Runs every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ .Release.Name }}-grafana
+          containers:
+          - name: {{ .Release.Name }}-ds-updater
+            image: registry.crisp.rbro.rbg.cc/devops/prometheus/tcm-tools:v0.3
+            command: ["python", "/scripts/update_dashboard.py"]
+            env:
+            - name: GRAFANA_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-grafana-api-key
+                  key: api-key
+            - name: GRAFANA_URL
+              value: "http://{{ .Release.Name }}-grafana"
+            volumeMounts:
+            - name: script-volume
+              mountPath: /scripts
+            - name: script-tmp
+              mountPath: /scripts-tmp
+          restartPolicy: OnFailure
+          volumes:
+          - name: script-tmp
+            emptyDir: {}
+          - name: script-volume
+            configMap:
+              name: {{ .Release.Name }}-grafana-ds-updater
+{{- end }}
+
+# #TODO nodeSelector & tolerations

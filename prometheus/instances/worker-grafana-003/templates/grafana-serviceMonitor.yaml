@@ -1,0 +1,20 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-grafana
+  namespace: monitoring
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: http-web
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+{{- end }}

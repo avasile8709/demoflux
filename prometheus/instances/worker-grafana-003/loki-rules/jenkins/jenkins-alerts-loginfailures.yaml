@@ -1,0 +1,11 @@
+name: jenkins-alerts-loginfailures
+interval: 1m
+rules:
+  - alert: JenkinsLoginFailures
+    expr: sum(rate({job="jenkins"} |= "Invalid login attempt" [5m])) by (instance) > 10
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Multiple failed login attempts detected."
+      description: "More than 10 failed login attempts in Jenkins within 5 minutes."

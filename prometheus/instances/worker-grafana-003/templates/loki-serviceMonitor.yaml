@@ -1,0 +1,50 @@
+{{- $loki := index .Values "loki" "enabled"|default false -}}
+{{- if $loki }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-loki
+  namespace: monitoring
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: http-metrics
+    relabelings:
+    - action: drop
+      regex: nginx
+      sourceLabels:
+      - __meta_kubernetes_pod_container_name
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: loki
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-minio
+  namespace: monitoring
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  endpoints:
+  - path: /minio/v2/metrics/cluster
+    port: http
+    relabelings:
+      - sourceLabels: [__meta_kubernetes_service_name]
+        regex: "{{ .Release.Name }}-minio-svc"
+        action: drop
+      - sourceLabels: [__meta_kubernetes_service_name]
+        regex: "{{ .Release.Name }}-minio-console"
+        action: drop
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app: minio
+{{- end }}

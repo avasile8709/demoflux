@@ -1,0 +1,12 @@
+spec:
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: monitoring
+      cluster: mgmt
+    - server: https://10.241.125.70:6443
+      namespace: monitoring
+      cluster: test
+  source:
+    repoURL: https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git
+    targetRevision: main
+  project: infrastructure

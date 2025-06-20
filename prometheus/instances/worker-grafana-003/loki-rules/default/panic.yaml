@@ -1,0 +1,12 @@
+name: panic-alerts
+interval: 1m
+rules:
+  - alert: PanicDetected
+    expr: |
+      count_over_time({namespace="kube-system"} |= "panic" [5m]) > 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Panic detected in logs"
+      description: "A panic message was found in the logs for namespace 'kube-system' within the last 5 minutes."

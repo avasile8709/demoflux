@@ -1,0 +1,28 @@
+---
+# Source: prometheus/templates/prometheus.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ctrl-prometheus
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infrastructure
+  source:
+    path: prometheus/argo-apps
+    repoURL: https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+#   - Replace=true

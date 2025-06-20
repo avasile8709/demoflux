@@ -1,0 +1,103 @@
+kube-prometheus-stack:
+  grafana:
+    alerting:
+      cluster-rules.yaml: 
+        apiVersion: 1
+        groups:
+          - orgId: 1
+            name: node alerts
+            folder: Cluster alerts
+            interval: 1m
+            rules:
+              - uid: f215bfd7-b8b9-4622-860b-d8e48b2272e5
+                title: Cluster node pool utilisation above 80%
+                condition: C
+                data:
+                  - refId: A
+                    queryType: Azure Resource Graph
+                    relativeTimeRange:
+                      from: 600
+                      to: 0
+                    datasourceUid: P53B5D1B8B22DA1A4
+                    model:
+                      azureMonitor:
+                          allowedTimeGrainsMs: []
+                          timeGrain: auto
+                      azureResourceGraph:
+                          query: "Resources\r\n| where type == \"microsoft.containerservice/managedclusters\"\r\n| extend pools = properties.agentPoolProfiles\r\n| mv-expand pools\r\n| extend fullName = strcat(name, \" \", pools.name)\r\n| project fullName, toint(pools['count']) >= toint(pools['maxCount'])*0.8"
+                      datasource:
+                          type: grafana-azure-monitor-datasource
+                          uid: P53B5D1B8B22DA1A4
+                      hide: false
+                      intervalMs: 1000
+                      maxDataPoints: 43200
+                      queryType: Azure Resource Graph
+                      refId: A
+                      subscriptions:
+                          - f4c6caf2-122a-491f-928a-ffa197a45fcd
+                  - refId: B
+                    relativeTimeRange:
+                      from: 600
+                      to: 0
+                    datasourceUid: __expr__
+                    model:
+                      conditions:
+                          - evaluator:
+                              params: []
+                              type: gt
+                            operator:
+                              type: and
+                            query:
+                              params:
+                                  - B
+                            reducer:
+                              params: []
+                              type: last
+                            type: query
+                      datasource:
+                          type: __expr__
+                          uid: __expr__
+                      expression: A
+                      hide: false
+                      intervalMs: 1000
+                      maxDataPoints: 43200
+                      reducer: last
+                      refId: B
+                      type: reduce
+                  - refId: C
+                    relativeTimeRange:
+                      from: 600
+                      to: 0
+                    datasourceUid: __expr__
+                    model:
+                      conditions:
+                          - evaluator:
+                              params:
+                                  - 0
+                              type: gt
+                            operator:
+                              type: and
+                            query:
+                              params:
+                                  - C
+                            reducer:
+                              params: []
+                              type: last
+                            type: query
+                      datasource:
+                          type: __expr__
+                          uid: __expr__
+                      expression: B
+                      hide: false
+                      intervalMs: 1000
+                      maxDataPoints: 43200
+                      refId: C
+                      type: threshold
+                noDataState: Alerting
+                execErrState: Alerting
+                for: 1m
+                annotations:
+                  description: The cluster pool {{ "{{" }} index labels "fullName" {{ "}}" }} has exceeded 80% node pool usage for the last 5 minutes
+                labels:
+                  team: DevOps
+                isPaused: false

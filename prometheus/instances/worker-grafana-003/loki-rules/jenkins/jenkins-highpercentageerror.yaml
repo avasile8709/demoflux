@@ -1,0 +1,15 @@
+name: loki-jenkins-highpercentageerror
+interval: 1m
+rules:
+  - alert: JenkinsHighPercentageError
+    expr: >
+      sum(count_over_time({app="jenkins"} |= "error" [5m])) by (job)
+      /
+      sum(count_over_time({app="jenkins"}[5m])) by (job)
+      > 0.05
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High error rate detected"
+      description: "More than 5% of requests are errors for job {{ $labels.job }}."

@@ -1,0 +1,72 @@
+- name: Mgmt
+  access: proxy
+  orgId: 1
+  uid: "1111"
+  type: prometheus
+  typeName: Prometheus
+  url: http://prometheus.mgmt.crisp.rbro.rbg.cc
+  user: ''
+  database: ''
+  basicAuth: false
+  isDefault: false
+  editable: true
+  readOnly: false
+  jsonData:
+    httpMethod: POST
+    tlsSkipVerify: true
+    manageAlerts: true
+    exemplarTraceIdDestinations:
+    - datasourceUid: "1010"
+      name: trace_id
+- name: Jaeger-Mgmt
+  access: proxy
+  orgId: 1
+  uid: "1010"
+  type: jaeger
+  typeName: Jaeger
+  url: http://jaeger.mgmt.crisp.rbro.rbg.cc
+  user: ''
+  database: ''
+  basicAuth: false
+  isDefault: false
+  editable: true
+  readOnly: false
+  jsonData:
+    httpMethod: POST
+    tlsSkipVerify: true
+    nodeGraph:
+      enabled: true
+    spanBar:
+      type: ''
+    traceToLogs:
+      datasourceUid: "1011"
+      filterBySpanID: false
+      filterByTraceID: false
+      mapTagNamesEnabled: false
+      mappedTags: []
+      tags: []
+- name: Loki-Mgmt
+  access: proxy
+  orgId: 1
+  uid: "1011"
+  type: loki
+  typeName: Loki
+  url: https://loki-gateway.mgmt.crisp.rbro.rbg.cc
+  user: ''
+  database: ''
+  basicAuth: false
+  isDefault: false
+  editable: true
+  readOnly: false
+  jsonData:
+    # maxLines: 10000
+    httpMethod: POST
+    tlsSkipVerify: true
+    manageAlerts: true
+    derivedFields:
+    - datasourceUid: "1010"
+      matcherRegex: (?:[Tt]race[-_]?[Ii][Dd])[\\]?["]?[=:][]?[\\]?["]?(\w+)
+      name: TraceID
+      url: '$${__value.raw}'
+      urlDisplayLabel: Jaeger
+

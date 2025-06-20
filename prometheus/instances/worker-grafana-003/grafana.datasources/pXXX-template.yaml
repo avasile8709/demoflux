@@ -1,0 +1,70 @@
+- name: pXXX
+  access: proxy
+  orgId: 1
+  uid: "1111"
+  type: prometheus
+  typeName: Prometheus
+  url: http://prometheus.pXXX.crisp-devops.com
+  user: ''
+  database: ''
+  basicAuth: false
+  isDefault: false
+  editable: true
+  readOnly: false
+  jsonData:
+    httpMethod: POST
+    tlsSkipVerify: true
+    manageAlerts: true
+    exemplarTraceIdDestinations:
+    - datasourceUid: "1010"
+      name: trace_id
+- name: Jaeger pXXX
+  access: proxy
+  orgId: 1
+  uid: "1010"
+  type: jaeger
+  typeName: Jaeger
+  url: http://jaeger.pXXX.crisp-devops.com
+  user: ''
+  database: ''
+  basicAuth: false
+  isDefault: false
+  editable: true
+  readOnly: false
+  jsonData:
+    httpMethod: POST
+    tlsSkipVerify: true
+    nodeGraph:
+      enabled: true
+    spanBar:
+      type: ''
+    traceToLogs:
+      datasourceUid: "1011"
+      filterBySpanID: false
+      filterByTraceID: false
+      mapTagNamesEnabled: false
+      mappedTags: []
+      tags: []
+- name: pXXX
+  access: proxy
+  orgId: 1
+  uid: "1011"
+  type: loki
+  typeName: Loki
+  url: https://prometheus-pXXX-loki-gateway.com
+  user: ''
+  database: ''
+  basicAuth: false
+  isDefault: false
+  editable: true
+  readOnly: false
+  jsonData:
+    httpMethod: POST
+    tlsSkipVerify: true
+    manageAlerts: true
+    derivedFields:
+    - datasourceUid: "1010"
+      matcherRegex: (?:[Tt]race[-_]?[Ii][Dd])[\\]?["]?[=:][]?[\\]?["]?(\w+)
+      name: TraceID
+      url: '$${__value.raw}'
+      urlDisplayLabel: Jaeger

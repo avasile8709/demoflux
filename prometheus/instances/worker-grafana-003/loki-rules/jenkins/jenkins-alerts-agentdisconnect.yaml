@@ -1,0 +1,11 @@
+name: jenkins-alerts-agentdisconnect
+interval: 1m
+rules:
+  - alert: JenkinsAgentDisconnect
+    expr: sum(rate({job="jenkins"} |= "channel is already closed" [5m])) by (agent) > 0
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Jenkins agent disconnected."
+      description: "An agent disconnected from Jenkins."

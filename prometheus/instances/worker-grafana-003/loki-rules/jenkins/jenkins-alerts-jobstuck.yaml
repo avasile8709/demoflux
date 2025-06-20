@@ -1,0 +1,11 @@
+name: jenkins-alerts-jobstuck
+interval: 1m
+rules:
+  - alert: JenkinsJobStuck
+    expr: sum(rate({job="jenkins"} |= "is stuck" [5m])) by (job) > 0
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Jenkins job stuck in running state."
+      description: "A Jenkins job has been stuck running for more than 10 minutes."

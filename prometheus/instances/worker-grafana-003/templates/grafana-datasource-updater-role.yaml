@@ -1,0 +1,12 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Release.Name }}-grafana-ds-updater
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["create", "get", "update", "patch"]
+{{- end }}

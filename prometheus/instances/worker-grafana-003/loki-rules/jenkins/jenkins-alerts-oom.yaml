@@ -1,0 +1,11 @@
+name: jenkins-alerts-oom
+interval: 1m
+rules:
+  - alert: JenkinsOutOfMemory
+    expr: sum(rate({job="jenkins"} |= "java.lang.OutOfMemoryError" [5m])) by (job) > 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Out of Memory error detected in Jenkins."
+      description: "Jenkins is running out of memory."

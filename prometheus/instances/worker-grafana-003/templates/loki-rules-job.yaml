@@ -1,0 +1,168 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-loki-rules-cleaner
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: loki-stack
+  annotations:
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/resource-policy": keep
+    "argocd.argoproj.io/hook": Sync
+    # "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: loki-rules-cleaner
+          image: registry.crisp.rbro.rbg.cc/devops/prometheus/tcm-tools:v0.3
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              for namespace in test default jenkins; do
+                echo "Cleanup rules in namespace $namespace "
+                curl -s -X DELETE http://{{ .Release.Name }}-loki-gateway/loki/api/v1/rules/$namespace \
+                  && echo "Cleaned: $namespace" || echo "Failed: $namespace"
+              done
+      nodeSelector:
+        kubernetes.io/os: linux
+        ReservedFor: monitoring
+      tolerations:
+        - key: "CriticalAddonsOnly"
+          operator: "Equal"
+          value: "true"
+        - key: "ForMonitoring"
+          operator: "Equal"
+          value: "true"
+---
+{{- $loki := index .Values "loki" "enabled"|default false -}}
+{{- $jenkins := index .Values "monitor" "jenkins" "enabled"|default false -}}
+{{- if and $loki $jenkins }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-loki-rules-uploader-jenkins
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: loki-stack
+  annotations:
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/resource-policy": keep
+    "argocd.argoproj.io/hook": Sync
+    # "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: loki-rules-uploader-jenkins
+          image: registry.crisp.rbro.rbg.cc/devops/prometheus/tcm-tools:v0.3
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              curl -X POST http://{{ .Release.Name }}-loki-gateway/loki/api/v1/rules/test \
+                -H "Content-Type: application/yaml" \
+                --data-binary @- <<EOF
+              name: test
+              interval: 1m
+              rules: []
+              EOF
+              for file in /rules/*.yaml; do
+                echo "Uploading $file to namespace 'jenkins'..."
+                curl -s -X POST http://{{ .Release.Name }}-loki-gateway/loki/api/v1/rules/jenkins \
+                  -H "Content-Type: application/yaml" \
+                  --data-binary @"$file" \
+                  && echo "Uploaded: $file" || echo "Failed: $file"
+              done
+          volumeMounts:
+            - name: loki-rule-cm-jenkins
+              mountPath: /rules
+      volumes:
+        - name: loki-rule-cm-jenkins
+          configMap:
+            name: {{ .Release.Name }}-loki-alert-rules-jenkins
+            items:
+              {{- range $path, $_ := .Files.Glob "loki-rules/jenkins/*.yaml" }}
+              - key: {{ base $path }}
+                path: {{ base $path }}
+              {{- end }}
+      nodeSelector:
+        kubernetes.io/os: linux
+        ReservedFor: monitoring
+      tolerations:
+        - key: "CriticalAddonsOnly"
+          operator: "Equal"
+          value: "true"
+        - key: "ForMonitoring"
+          operator: "Equal"
+          value: "true"
+{{- end }}
+---
+{{- $loki := index .Values "loki" "enabled"|default false -}}
+{{- if and $loki }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-loki-rules-uploader
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: loki-stack
+  annotations:
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/resource-policy": keep
+    "argocd.argoproj.io/hook": Sync
+    # "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: loki-rules-uploader
+          image: registry.crisp.rbro.rbg.cc/devops/prometheus/tcm-tools:v0.3
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              curl -X POST http://{{ .Release.Name }}-loki-gateway/loki/api/v1/rules/test \
+                -H "Content-Type: application/yaml" \
+                --data-binary @- <<EOF
+              name: test
+              interval: 1m
+              rules: []
+              EOF
+              for file in /rules/*.yaml; do
+                echo "Uploading $file to namespace 'default'..."
+                curl -s -X POST http://{{ .Release.Name }}-loki-gateway/loki/api/v1/rules/default \
+                  -H "Content-Type: application/yaml" \
+                  --data-binary @"$file" \
+                  && echo "Uploaded: $file" || echo "Failed: $file"
+              done
+          volumeMounts:
+            - name: loki-rule-cm
+              mountPath: /rules
+      volumes:
+        - name: loki-rule-cm
+          configMap:
+            name: {{ .Release.Name }}-loki-alert-rules
+            items:
+              {{- range $path, $_ := .Files.Glob "loki-rules/default/*.yaml" }}
+              - key: {{ base $path }}
+                path: {{ base $path }}
+              {{- end }}
+      nodeSelector:
+        kubernetes.io/os: linux
+        ReservedFor: monitoring
+      tolerations:
+        - key: "CriticalAddonsOnly"
+          operator: "Equal"
+          value: "true"
+        - key: "ForMonitoring"
+          operator: "Equal"
+          value: "true"
+{{- end }}

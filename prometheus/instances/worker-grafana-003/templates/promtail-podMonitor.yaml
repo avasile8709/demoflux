@@ -1,0 +1,20 @@
+{{- $promtail := index .Values "promtail" "enabled"|default false -}}
+{{- if $promtail }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Release.Name }}-promtail
+  namespace: monitoring
+  labels:
+    release: {{ .Release.Name }}
+spec:
+  podMetricsEndpoints:
+  - path: /metrics
+    port: http-metrics
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: promtail
+{{- end }}

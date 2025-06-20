@@ -1,0 +1,650 @@
+global:
+  imageRegistry: "registry.crisp.rbro.rbg.cc/devops"
+  dnsService: "rke2-coredns-rke2-coredns"
+  security:
+    allowInsecureImages: true
+
+crisp:
+  storageClass: &crisp_storageClass "local-path"
+
+kube-prometheus-stack:
+  defaultRules:
+    labels:
+      role: crisp-rules
+    create: true
+  #   rules:
+  #     alertmanager: false
+  #     etcd: false
+  #     configReloaders: false
+  #     general: false
+  #     k8s: false
+  #     kubeApiserverAvailability: false
+  #     kubeApiserverBurnrate: false
+  #     kubeApiserverHistogram: false
+  #     kubeApiserverSlos: false
+  #     kubeControllerManager: false
+  #     kubelet: false
+  #     kubeProxy: false
+  #     kubePrometheusGeneral: false
+  #     kubePrometheusNodeRecording: false
+  #     kubernetesApps: false
+  #     kubernetesResources: false
+  #     kubernetesStorage: false
+  #     kubernetesSystem: false
+  #     kubeSchedulerAlerting: false
+  #     kubeSchedulerRecording: false
+  #     kubeStateMetrics: false
+  #     network: false
+  #     node: false
+  #     nodeExporterAlerting: false
+  #     nodeExporterRecording: false
+  #     prometheus: false
+  #     prometheusOperator: false
+  nodeSelector:
+    kubernetes.io/os: linux
+    ReservedFor: monitoring
+
+  tolerations:
+    - key: "ForMonitoring"
+      operator: "Equal"
+      value: "true"
+
+  kubelet:
+    enabled: true
+    serviceMonitor:
+      https: true
+
+  kubeControllerManager:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+  kubeProxy:
+    enabled: false
+
+  grafana:
+    enabled: false
+
+  prometheusOperator:
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring
+
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+
+    admissionWebhooks:
+      patch:
+        nodeSelector:
+          kubernetes.io/os: linux
+          ReservedFor: monitoring
+
+        tolerations:
+          - key: "ForMonitoring"
+            operator: "Equal"
+            value: "true"
+
+  kube-state-metrics:
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring
+
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+
+    extraArgs:
+      - --metric-labels-allowlist=nodes=[agentpool,kubernetes.azure.com/agentpool,kubernetes.io/hostname,beta.kubernetes.io/os,node.kubernetes.io/instance-type,topology.kubernetes.io/region,topology.kubernetes.io/zone,topology.disk.csi.azure.com/zone,kubernetes.azure.com/os-sku],pods=[app.kubernetes.io/name,app.kubernetes.io/version],deployments=[app.kubernetes.io/name,app.kubernetes.io/version],daemonsets=[app.kubernetes.io/name,app.kubernetes.io/version],statefulsets=[app.kubernetes.io/name,app.kubernetes.io/version]
+
+    customResourceState: 
+      enabled: true
+
+  additionalPrometheusRules:
+
+  prometheus:
+    prometheusSpec:
+      replicas: 1
+      serviceMonitorSelectorNilUsesHelmValues: "false"
+      podMonitorSelectorNilUsesHelmValues: "false"
+      ruleSelectorNilUsesHelmValues: "true"
+      ruleSelector:
+        matchLabels:
+          role: crisp-rules
+      nodeSelector:
+        kubernetes.io/os: linux
+        ReservedFor: monitoring
+
+      tolerations:
+        - key: "ForMonitoring"
+          operator: "Equal"
+          value: "true"
+
+      # retension policy
+      retention: 168h
+      retentionSize: 50GiB
+
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: *crisp_storageClass
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 50Gi
+
+      enableFeatures:
+      - exemplar-storage
+
+      # additionalScrapeConfigsSecret:
+      #   enabled: true
+      # additionalScrapeConfigs:
+      #   name: crisp-additional-scrape-config
+      #   key: additional-scrape-configs.yaml
+      additionalScrapeConfigs: []
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - prometheus.XXX.crisp-devops.322.c21.YYY.provides.io
+      paths:
+        - "/"
+
+    additionalServiceMonitors:
+
+  alertmanager:
+    alertmanagerSpec:
+      replicas: 1
+      nodeSelector:
+        kubernetes.io/os: linux
+        ReservedFor: monitoring
+
+      tolerations:
+        - key: "ForMonitoring"
+          operator: "Equal"
+          value: "true"
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - alertmanager.XXX.crisp-devops.322.c21.YYY.provides.io
+      paths:
+        - "/"
+    config:
+      global:
+        resolve_timeout: 1m
+      receivers:
+      - name: prometheus-msteams
+        webhook_configs:
+        - url: "http://prometheus-msteams:2000/jenkins"
+          send_resolved: true
+      - name: prometheus-msteams-critical
+        webhook_configs:
+        - url: "http://prometheus-msteams:2000/critical"
+          send_resolved: true
+      route:
+        group_by:
+        - job
+        group_interval: 1m
+        group_wait: 30s
+        receiver: prometheus-msteams
+        repeat_interval: 8h
+        routes:
+        - match:
+            severity: critical
+          receiver: prometheus-msteams-critical
+        - match:
+            severity: warning
+          receiver: prometheus-msteams
+        - match:
+            severity: high
+          receiver: prometheus-msteams
+        - match:
+            job: kube-state-metrics
+          receiver: prometheus-msteams
+
+  prometheus-node-exporter:
+    image:
+      registry: "registry.crisp.rbro.rbg.cc/devops"
+    nodeSelector:
+      kubernetes.io/os: linux
+      beta.kubernetes.io/os: linux
+    tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Equal"
+        value: "true"
+
+prometheus-blackbox-exporter:
+  enabled: false
+
+prometheus-msteams:
+  image:
+    repository: registry.crisp.rbro.rbg.cc/devops/prometheusmsteams/prometheus-msteams
+    tag: v1.5.2
+  replicaCount: 1
+  nodeSelector:
+    kubernetes.io/os: linux
+    ReservedFor: monitoring
+
+  tolerations:
+    - key: "ForMonitoring"
+      operator: "Equal"
+      value: "true"
+
+  connectors:
+    - crispalerts: https://crisp.webhook.office.com/webhookb2/7c4ed006-b19b-4dea-a330-680e4b10713b@0b9b90da-3fe1-457a-b340-f1b67e1024fb/IncomingWebhook/5eb8afbdbb674180ba7bcb6d1a6d8a23/3852c014-1957-4b5c-b0c9-ce564a314a53/V27LZ6toJsfqMTmkRJ98UMCLVbpocqyBnKel_AXfIuseE1
+
+  # Enable metrics for prometheus operator
+  metrics:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus
+      scrapeInterval: 30s
+
+promtail:
+  enabled: true
+  config:
+    logLevel: info
+    serverPort: 3101
+    clients:
+      - url: http://prometheus-XXX-loki-gateway/loki/api/v1/push
+    scrape_configs:
+      - job_name: kubernetes-pods
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_phase]
+            action: drop
+            regex: "Succeeded|Failed"
+  nodeSelector:
+    kubernetes.io/os: linux
+
+  tolerations:
+    - key: "CriticalAddonsOnly"
+      operator: "Equal"
+      value: "true"
+    - key: "ForMonitoring"
+      operator: "Equal"
+      value: "true"
+
+loki:
+  enabled: true
+  loki:
+    image: 
+      registry: registry.crisp.rbro.rbg.cc/devops
+
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+
+    auth_enabled: false
+    schemaConfig:
+      configs:
+        - from: 2024-04-01
+          store: tsdb
+          object_store: s3
+          schema: v13
+          index:
+            prefix: loki_index_
+            period: 24h
+    ingester:
+      chunk_idle_period: 10m
+      chunk_retain_period: 30m
+      chunk_encoding: snappy
+    pattern_ingester:
+      enabled: true
+    tracing:
+      enabled: true
+    querier:
+      # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
+      max_concurrent: 16
+    server:
+      log_level: info
+      grpc_server_max_recv_msg_size: 8388608
+      grpc_server_max_send_msg_size: 8388608
+      http_server_read_timeout: 5m
+      register_instrumentation: true
+    limits_config:
+      max_label_name_length: 1024
+      max_label_value_length: 4096
+      max_streams_per_user: 500000
+      max_global_streams_per_user: 500000
+      max_entries_limit_per_query: 500000
+      max_query_length: 168h
+      max_query_parallelism: 32
+      max_query_lookback: 168h
+      per_stream_rate_limit: 10m
+      per_stream_rate_limit_burst: 20m
+      reject_old_samples: true
+      reject_old_samples_max_age: 168h
+      ingestion_rate_mb: 64
+      ingestion_burst_size_mb: 128
+      query_timeout: 5m
+      max_cache_freshness_per_query: 10m
+      volume_enabled: true
+      retention_period: 168h
+
+  memcached:
+    image:
+      repository: registry.crisp.rbro.rbg.cc/devops/memcached
+  memcachedExporter:
+    image:
+      repository: registry.crisp.rbro.rbg.cc/devops/prom/memcached-exporter
+  sidecar:
+    image:
+      repository: registry.crisp.rbro.rbg.cc/devops/kiwigrid/k8s-sidecar
+  resultsCache:
+    replicas: 2
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  chunksCache:
+    replicas: 2
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+
+  gateway:
+    image:
+      registry: registry.crisp.rbro.rbg.cc/devops
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+    replicas: 2
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 6
+    ingress:
+      enabled: true
+      ingressClassName: ""
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        # nginx.ingress.kubernetes.io/rewrite-target: /$2
+      labels: {}
+      hosts:
+        - host: loki-gateway.XXX.crisp-devops.322.c21.YYY.provides.io
+          paths:
+            - path: /
+              pathType: Prefix
+            # - path: /()(loki.*)
+            #   pathType: ImplementationSpecific
+
+  deploymentMode: Distributed
+
+  lokiCanary:
+    image:
+      registry: registry.crisp.rbro.rbg.cc/devops
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+
+  backend:
+    image:
+      registry: registry.crisp.rbro.rbg.cc/devops
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+    enabled: true
+    replicas: 0
+    persistence:
+      storageClass: *crisp_storageClass
+  read:
+    image:
+      registry: registry.crisp.rbro.rbg.cc/devops
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+    enabled: true
+    replicas: 0
+    persistence:
+      storageClass: *crisp_storageClass
+  write:
+    image:
+      registry: registry.crisp.rbro.rbg.cc/devops
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+    enabled: true
+    replicas: 0
+    persistence:
+      storageClass: *crisp_storageClass
+
+  # Enable minio for storage
+  minio:
+    image:
+      repository: registry.crisp.rbro.rbg.cc/devops/minio/minio
+    mcImage:
+      repository: registry.crisp.rbro.rbg.cc/devops/minio/mc
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+    enabled: true
+    replicas: 2
+    persistence:
+      storageClass: *crisp_storageClass
+      size: 50Gi
+    postJob:
+      nodeSelector:
+        kubernetes.io/os: linux
+        ReservedFor: monitoring 
+      tolerations:
+        - key: "ForMonitoring"
+          operator: "Equal"
+          value: "true"
+
+  # Zero out replica counts of other deployment modes
+  singleBinary:
+    image:
+      registry: registry.crisp.rbro.rbg.cc/devops
+    replicas: 0
+
+  ingester:
+    replicas: 2
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 6
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  querier:
+    replicas: 2
+    maxUnavailable: 1
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 6
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  frontend:
+    cache_results: true
+    results_cache:
+      cache:
+        enable_fifocache: true
+        fifocache:
+          max_size_items: 10240
+          validity: 1h
+
+  query_range:
+    max_query_length: 168h  # 7 days
+    max_retries: 5
+    parallelise_shardable_queries: true
+    align_queries_with_step: true
+    results_cache:
+      cache:
+        enable_fifocache: true
+        fifocache:
+          max_size_items: 10240
+          validity: 1h
+
+  queryFrontend:
+    replicas: 2
+    maxUnavailable: 1
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  queryScheduler:
+    replicas: 2
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  distributor:
+    replicas: 2
+    maxUnavailable: 1
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 6
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  compactor:
+    replicas: 2
+    working_directory: /data/retention
+    compaction_interval: 10m
+    retention_enabled: true
+    retention_delete_delay: 2h
+    retention_delete_worker_count: 150
+    delete_request_store: s3
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  indexGateway:
+    replicas: 2
+    maxUnavailable: 1
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+  bloomCompactor:
+    replicas: 0
+  bloomGateway:
+    replicas: 0
+
+  ruler:
+    enabled: true
+    replicas: 2
+    maxUnavailable: 1
+    nodeSelector:
+      kubernetes.io/os: linux
+      ReservedFor: monitoring 
+    tolerations:
+      - key: "ForMonitoring"
+        operator: "Equal"
+        value: "true"
+
+    rule_path: /rules
+    enable_api: true
+    storage:
+      type: local
+    ring:
+      kvstore:
+        store: memberlist
+
+kubernetes-event-exporter:
+  enabled: false
+
+  nodeSelector:
+    kubernetes.io/os: linux
+    ReservedFor: monitoring
+  tolerations:
+    - key: "ForMonitoring"
+      operator: "Equal"
+      value: "true"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      interval: 30s
+
+  # config:
+  #   logLevel: info
+  #   route:
+  #     routes:
+  #       - match:
+  #         - receiver: prometheus
+  #         receivers:
+  #           - name: prometheus
+  #   receivers:
+  #     - name: prometheus
+  #       type: prometheus
+
+monitor:
+  argocd:
+    enabled: false
+  jenkins: 
+    enabled: false

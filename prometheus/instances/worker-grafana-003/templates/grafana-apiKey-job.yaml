@@ -1,0 +1,117 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-grafana-api-key
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook": post-install
+    "helm.sh/resource-policy": keep
+    "argocd.argoproj.io/hook": Sync
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ .Release.Name }}-grafana
+      containers:
+      - name: {{ .Release.Name }}-grafana-api-key-generator
+        image: registry.crisp.rbro.rbg.cc/devops/prometheus/tcm-tools:v0.3
+        command:
+          - /bin/sh
+          - -c
+          - |
+            #!/bin/sh
+            set -e
+
+            echo "Checking for existing Kubernetes Secret..."
+            SECRET_EXISTS=$(kubectl get secret {{ .Release.Name }}-grafana-api-key -n {{ .Release.Namespace }} --ignore-not-found)
+
+            if [ -n "$SECRET_EXISTS" ]; then
+              echo "Kubernetes Secret already exists. Skipping if service account still exists..."
+
+              EXISTING_ACCOUNTS=$(curl -s -k -u "$GRAFANA_ADMIN_USER:$GRAFANA_ADMIN_PASSWORD" \
+                "${GRAFANA_URL}/api/serviceaccounts/search" || true)
+
+              SERVICE_ACCOUNT_ID=$(echo "$EXISTING_ACCOUNTS" | jq -r '.serviceAccounts[] | select(.name == "automation-service-account") | .id' || true)
+
+              if [ -n "$SERVICE_ACCOUNT_ID" ] && [ "$SERVICE_ACCOUNT_ID" != "null" ]; then
+                echo "Service account exists. Skipping job."
+                exit 0
+              else
+                echo "Service account missing or inaccessible. Deleting existing secret to regenerate..."
+                kubectl delete secret {{ .Release.Name }}-grafana-api-key -n {{ .Release.Namespace }} --ignore-not-found
+              fi
+            fi
+
+            echo "Attempting to create service account..."
+            TMP_RESPONSE=$(mktemp)
+            HTTP_CODE=$(curl -s -k -o "$TMP_RESPONSE" -w "%{http_code}" -X POST "${GRAFANA_URL}/api/serviceaccounts" \
+              -u "$GRAFANA_ADMIN_USER:$GRAFANA_ADMIN_PASSWORD" \
+              -H "Content-Type: application/json" \
+              -d '{"name": "automation-service-account", "role": "Admin"}')
+
+            RESPONSE_BODY=$(cat "$TMP_RESPONSE")
+            rm -f "$TMP_RESPONSE"
+            TRIMMED_HTTP_CODE=$(echo "$HTTP_CODE" | tr -d '\r\n')
+
+            if [ "$TRIMMED_HTTP_CODE" = "200" ] || [ "$TRIMMED_HTTP_CODE" = "201" ]; then
+              SERVICE_ACCOUNT_ID=$(echo "$RESPONSE_BODY" | jq -r '.id')
+              echo "Created new service account with ID: $SERVICE_ACCOUNT_ID"
+            elif echo "$RESPONSE_BODY" | grep -q "service account already exists"; then
+              echo "Service account already exists. Trying to retrieve ID..."
+
+              EXISTING_ACCOUNTS=$(curl -s -k -u "$GRAFANA_ADMIN_USER:$GRAFANA_ADMIN_PASSWORD" \
+                "${GRAFANA_URL}/api/serviceaccounts/search" || true)
+
+              SERVICE_ACCOUNT_ID=$(echo "$EXISTING_ACCOUNTS" | jq -r '.serviceAccounts[] | select(.name == "automation-service-account") | .id' || true)
+
+              if [ -z "$SERVICE_ACCOUNT_ID" ] || [ "$SERVICE_ACCOUNT_ID" = "null" ]; then
+                echo "ERROR: Could not retrieve existing service account ID"
+                echo "$EXISTING_ACCOUNTS"
+                exit 1
+              fi
+              echo "Found existing service account with ID: $SERVICE_ACCOUNT_ID"
+            else
+              echo "ERROR: Failed to create service account"
+              echo "$RESPONSE_BODY"
+              exit 1
+            fi
+
+            echo "Generating API Token for Service Account..."
+            API_KEY_RESPONSE=$(curl -s -k -X POST "${GRAFANA_URL}/api/serviceaccounts/$SERVICE_ACCOUNT_ID/tokens" \
+              -u "$GRAFANA_ADMIN_USER:$GRAFANA_ADMIN_PASSWORD" \
+              -H "Content-Type: application/json" \
+              -d '{"name": "automation-sa-api-key", "ttlSeconds": 31536000}')
+
+            echo "DEBUG - Full API Key Response: $API_KEY_RESPONSE"
+
+            API_KEY=$(echo "$API_KEY_RESPONSE" | jq -r '.key')
+            if [ -z "$API_KEY" ] || [ "$API_KEY" = "null" ]; then
+              echo "ERROR: Failed to retrieve API Key"
+              exit 1
+            fi
+            echo "API Key generated"
+
+            echo "Storing API Key in Kubernetes Secret..."
+            kubectl create secret generic {{ .Release.Name }}-grafana-api-key \
+              --from-literal=api-key="$API_KEY" \
+              -n {{ .Release.Namespace }} \
+              --dry-run=client -o yaml | kubectl apply -f -
+
+            echo "Grafana API Key stored successfully"
+        env:
+          - name: GRAFANA_URL
+            value: "http://{{ .Release.Name }}-grafana"
+          - name: GRAFANA_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-grafana
+                key: admin-user
+          - name: GRAFANA_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-grafana
+                key: admin-password
+      restartPolicy: Never
+{{- end }}

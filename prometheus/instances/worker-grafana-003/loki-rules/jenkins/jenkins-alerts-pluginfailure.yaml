@@ -1,0 +1,11 @@
+name: jenkins-alerts-pluginfailure
+interval: 1m
+rules:
+  - alert: JenkinsPluginFailure
+    expr: sum(rate({job="jenkins"} |= "SEVERE" |= "Failed to load plugin" [5m])) by (plugin) > 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Plugin load failure in Jenkins."
+      description: "A plugin failed to load in Jenkins."

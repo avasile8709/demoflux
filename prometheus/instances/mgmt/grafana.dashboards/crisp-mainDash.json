@@ -1,0 +1,69 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": false,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 143,
+    "links": [],
+    "panels": [
+      {
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 20,
+          "w": 23,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "code": {
+            "language": "plaintext",
+            "showLineNumbers": false,
+            "showMiniMap": false
+          },
+          "content": "<h1>📊 Main Dashboard</h1>\n\n<h2>🔎 Monitoring Dashboards</h2>\n<ul>\n  <li>📝 <a href=\"/d/9QD2dsUVk/getlogs\" target=\"_blank\">General Logs Dashboard</a></li>\n</ul>\n\n<h2>🔎 crisp-DevOps Dashboards</h2>\n<ul>\n  <li>☸️ <a href=\"/d/cN7l4Kv4k/main-dashboard-kubernetes-cluster-monitoring\" target=\"_blank\">Kubernetes Cluster</a></li>\n  <li>⚙️ <a href=\"/d/cKzoSb-4z/jenkinsperf-v2\" target=\"_blank\">Jenkins Perf Dashboard</a></li>\n  <li>🕵️‍♂️ <a href=\"/d/zLOi95xmk/jaeger-all-in-one\" target=\"_blank\">Jaeger Traces</a></li>\n  <li>🚨 <a href=\"/d/WojOgXTmk/alerts\" target=\"_blank\">Alerts</a></li>\n  <li>🚨 <a href=\"/d/WojOgXTmk/alerts\" target=\"_blank\">Alerts 2</a></li>\n</ul>\n\n<h2>🔎 External Teams Dashboards</h2>\n<ul>\n  <li>📈 <a href=\"/d/app-perf/app-performance-dashboard?orgId=1\" target=\"_blank\">App Performance</a></li>\n  <li>❗ <a href=\"/d/errors/error-tracking-dashboard?orgId=1\" target=\"_blank\">Error Tracking</a></li>\n</ul>\n\n<h2>📈 Application Dashboards</h2>\n<ul>\n  <li>📊 <a href=\"d/app-perf/app-performance-dashboard?orgId=1\" target=\"_blank\">App Performance</a></li>\n  <li>🐞 <a href=\"d/errors/error-tracking-dashboard?orgId=1\" target=\"_blank\">Error Tracking</a></li>\n</ul>",
+          "mode": "markdown"
+        },
+        "pluginVersion": "11.3.0",
+        "title": "",
+        "transparent": true,
+        "type": "text"
+      }
+    ],
+    "preload": false,
+    "schemaVersion": 40,
+    "tags": [
+      "Crisp- DevOps"
+    ],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Crisp- DevOps - Main Dashboard",
+    "uid": "fea4wr2wcvg8wf",
+    "version": 14,
+    "weekStart": "Monday"
+  }

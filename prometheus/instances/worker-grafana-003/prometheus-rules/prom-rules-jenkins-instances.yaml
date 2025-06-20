@@ -1,0 +1,39 @@
+- name: jenkins-instances.tcm-rules
+  rules:
+  - alert: Jenkins Service Down
+    expr: avg_over_time(probe_success{job="jenkins_services"}[1m]) > 1
+    for: 5m
+    labels:
+      severity: high
+    annotations:
+      summary: "Jenkins down (instance {{ $labels.service }})"
+      description: "Endpoint is down for more than 5m\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+  - alert: Jenkins Latency is slow
+    expr: quantile_over_time(0.99,{job="jeknins_services"}[1m]) > 2
+    for: 5m
+    labels:
+      severity: high
+    annotations:
+      summary: "99% Jenkins repsonse time is over 2s (instance {{ $labels.service }})"
+      description: "jenkins response is more than 2s for more than 5m\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+  - alert: Jenkins Latency is too slow
+    expr: quantile_over_time(0.90,{job="jenkins_services"}[1m]) > 5
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "90% of Jenkins repsonse time is over 5s (instance {{ $labels.service }})"
+      description: "jenkins response is more than 5s for more than 5m\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+  - alert: ContainersWithErrorStatusInBuilderPods
+    expr: |
+      count by (namespace, pod) (
+        kube_pod_container_status_terminated_reason{reason="Error", pod=~"k8s-pod-aks.*"} > 0
+      ) > 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Container {{ $labels.container }} in pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is in Error state"
+      description: |
+        Container {{ $labels.container }} in Jenkins Builder Pod {{ $labels.pod }} from namespace {{ $labels.namespace }} has terminated with Error state.
+        Check the container logs and pod events for further investigation.

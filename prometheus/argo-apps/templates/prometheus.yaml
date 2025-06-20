@@ -1,0 +1,40 @@
+{{- $values := .Values }}
+{{- $chart := .Chart }}
+{{- range $item := .Values.spec.destinations }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-{{ $item.cluster }}
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ $values.spec.project }}
+  source:
+    path: prometheus/instances/{{ $item.cluster }}
+    repoURL: {{ $values.spec.source.repoURL }}
+    targetRevision: {{ $values.spec.source.targetRevision }}
+    helm:
+      valueFiles:
+        - values.yaml
+        - {{ $item.cluster }}-values.yaml
+        {{- range $item.additionalValueFiles }}
+        - {{ . }}
+        {{- end}}
+  destination:
+    namespace: {{ $item.namespace }}
+    server: {{ $item.server }}
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    # - Replace=true # fix is not working for "Too long: must have at most 262144 bytes"
+  ignoreDifferences:
+    - group: ""
+      kind: ConfigMap
+      name: prometheus-{{ $item.cluster }}-promtail
+{{- end }}

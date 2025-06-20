@@ -1,0 +1,11 @@
+name: jenkins-alerts-highqueuetime
+interval: 1m
+rules:
+  - alert: JenkinsHighQueueTime
+    expr: sum(rate({job="jenkins"} |= "Waiting for next available executor" [5m])) by (job) > 5
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High build queue time detected in Jenkins."
+      description: "Builds are waiting for executors for more than 5 minutes."

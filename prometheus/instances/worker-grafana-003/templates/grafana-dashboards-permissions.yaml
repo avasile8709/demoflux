@@ -1,0 +1,17 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled"|default false -}}
+{{- if $grafana }}
+{{ range $path, $_ :=  .Files.Glob  "grafana.dashboards.permissions/*.json" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $.Release.Name}}-grafana-dashboards-permissions
+  labels:
+    grafana_dashboard: "1"
+  annotations:
+    grafana_folder: "CrispDevOps Team"
+data:
+  {{ base $path |lower | replace "_" "-" | replace " " "-" | quote }}: |
+{{ $.Files.Get $path |indent 4 }}
+{{ end }}
+{{ end }}

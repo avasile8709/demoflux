@@ -1,0 +1,11 @@
+name: jenkins-alerts-lowdiskspace
+interval: 1m
+rules:
+  - alert: JenkinsLowDiskSpace
+    expr: sum(rate({job="jenkins"} |= "Low disk space" [5m])) by (instance) > 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Low disk space on Jenkins server."
+      description: "Jenkins has reported low disk space on {{ $labels.instance }}."
