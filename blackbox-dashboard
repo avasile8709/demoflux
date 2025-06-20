@@ -24,7 +24,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "prometheus"  // MAKE SURE THIS MATCHES YOUR PROMETHEUS DATASOURCE UID
       },
       "fieldConfig": {
         "defaults": {
@@ -97,7 +97,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "prometheus" // MAKE SURE THIS MATCHES YOUR PROMETHEUS DATASOURCE UID
           },
           "editorMode": "code",
           "expr": "probe_success{job=\"$job\"}",
@@ -114,7 +114,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "prometheus" // MAKE SURE THIS MATCHES YOUR PROMETHEUS DATASOURCE UID
       },
       "fieldConfig": {
         "defaults": {
@@ -163,12 +163,12 @@
         "showThresholdMarkers": true,
         "textMode": "auto"
       },
-      "pluginVersion": "11.0.0",
+      "pluginVersion": "11.0.0", // Assuming you are on Grafana 11.x
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "prometheus" // MAKE SURE THIS MATCHES YOUR PROMETHEUS DATASOURCE UID
           },
           "editorMode": "code",
           "expr": "sum(probe_success{job=\"$job\"}) by (job) / count(probe_success{job=\"$job\"}) by (job)",
@@ -189,12 +189,12 @@
       {
         "current": {
           "selected": true,
-          "text": "blackbox-external-sit-readiness",
-          "value": "blackbox-external-sit-readiness"
+          "text": "blackbox-external-sit-readiness", // Default job, adjust if needed
+          "value": "blackbox-external-sit-readiness"  // Default job, adjust if needed
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "prometheus" // MAKE SURE THIS MATCHES YOUR PROMETHEUS DATASOURCE UID
         },
         "definition": "label_values(probe_success, job)",
         "hide": 0,
@@ -215,14 +215,14 @@
           "text": "prometheus",
           "value": "prometheus"
         },
-        "hide": 2,
-        "name": "datasource",
+        "hide": 2, // This variable is hidden by default
+        "name": "datasource", // Name of the datasource variable for internal use
         "options": [],
-        "query": "prometheus",
-        "refresh": 2,
+        "query": "prometheus", // Tells Grafana this is for Prometheus datasources
+        "refresh": 2, // On dashboard load
         "regex": "",
         "skipUrlSync": false,
-        "type": "datasource"
+        "type": "datasource" // Type of variable
       }
     ]
   },
@@ -246,7 +246,7 @@
   },
   "timezone": "browser",
   "title": "Blackbox Endpoint Status",
-  "uid": "blackbox-status-simple",
-  "version": 6,
+  "uid": "blackbox-status-final", // Changed UID to avoid conflict if old one imported
+  "version": 1,
   "weekStart": ""
 }
