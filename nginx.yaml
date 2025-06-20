@@ -1,0 +1,29 @@
+                    location ~ /s3/ {
+                             access_log  /var/log/nginx/access.log logger-json-log-no-body;
+                              
+                             rewrite ^/s3/(.*)$ /$1 break;
+                             
+                             #--------------------------------------
+                             proxy_cache otacache;
+                             proxy_cache_valid   200 43200m;      
+                             proxy_cache_lock on;          
+                             proxy_cache_lock_timeout 60s;
+                             proxy_cache_lock_age 180s;            
+                             proxy_cache_use_stale updating;
+                             proxy_cache_convert_head off;
+                             proxy_cache_key "$scheme$proxy_host$uri$request_method";
+                             #-------------------------------------
+                             
+                             # AWS V4 Authentication
+                             aws_sign;
+                             aws_access_key spc_nginx_aws_access_key_placeholder;
+                             aws_key_scope nginx_date/us-west-2/s3/aws4_request;
+                             aws_signing_key nginx_aws_signing_key;
+                             aws_s3_bucket brazil-int-image-store;
+                             
+                             # Set required AWS headers
+                             proxy_set_header Date $http_date;
+                             proxy_set_header x-amz-date $time_iso8601;
+                             proxy_set_header Host brazil-int-image-store.s3.amazonaws.com;
+                             
+                             proxy_pass https://brazil-int-image-store.s3.amazonaws.com/$1;
