@@ -1,0 +1,139 @@
+# Top-level of your wrapper chart's values.yaml
+
+# --- Prometheus Blackbox Exporter Configuration ---
+# This section configures the 'prometheus-blackbox-exporter' subchart
+prometheus-blackbox-exporter:
+  enabled: true # Assuming you want it enabled, as per your original post
+
+  # ... (include any OTHER specific blackbox-exporter overrides you already have or need here) ...
+  # For example, your original post had:
+  restartPolicy: Always
+  kind: Deployment
+  podDisruptionBudget: {}
+  pspEnabled: true # Consider if you still need this given PSP deprecation
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  runAsUser: 1000
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+  nodeSelector:
+    kubernetes.io/os: linux
+    ReservedFor: monitoring
+  tolerations:
+    - key: "ForMonitoring"
+      operator: "Equal"
+      value: "true"
+  # ... etc. for other settings from your original blackbox exporter values.yaml ...
+
+  # This is the Blackbox Exporter's own configuration for probe modules
+  config:
+    modules:
+      http_2xx: # Your original module, you can keep it if used elsewhere
+        prober: http
+        timeout: 20s
+        http:
+          follow_redirects: true
+          valid_http_versions: ["HTTP/1.1"]
+          preferred_ip_protocol: "ip4"
+          valid_status_codes:
+            - 200
+            - 401
+            - 403
+            - 404
+            - 302
+          tls_config:
+            insecure_skip_verify: true
+
+      # --- NEW/UPDATED MODULE for your specific SIT readiness endpoints ---
+      http_sit_readiness:
+        prober: http
+        timeout: 15s # Adjust as needed
+        http:
+          follow_redirects: true # Usually not needed for readiness but harmless
+          preferred_ip_protocol: "ip4"
+          # For readiness probes, you generally ONLY want 200 to be a success
+          valid_status_codes:
+            - 200
+          tls_config:
+            # For SIT environments with self-signed or internal CA certs,
+            # and if you haven't set up the CA cert within blackbox exporter.
+            # For PROD, this should ideally be 'false' and CAs handled.
+            insecure_skip_verify: true
+
+  service:
+    # ... your blackbox service config ...
+    type: ClusterIP
+    port: 9115 # This is the port Prometheus will use to talk to blackbox
+
+# --- Kube Prometheus Stack Configuration ---
+# This section configures the 'kube-prometheus-stack' subchart
+kube-prometheus-stack:
+  enabled: true # Assuming you want it enabled
+
+  # ... (include any OTHER specific kube-prometheus-stack overrides you already have or need here) ...
+
+  prometheus:
+    # Configuration for the Prometheus server itself, managed by the Prometheus Operator
+    prometheusSpec:
+      # ... (any other prometheusSpec settings you have) ...
+
+      # --- THIS IS WHERE YOU ADD THE SCRAPE CONFIG FOR YOUR EXTERNAL ENDPOINTS ---
+      additionalScrapeConfigs:
+        # - job_name: 'example-existing-job' # If you have other additional scrape configs, keep them
+        #   static_configs:
+        #     - targets: ['foo:1234']
+
+        - job_name: 'blackbox-external-sit-readiness'
+          # How often Prometheus should ask Blackbox Exporter to probe these targets
+          scrape_interval: 60s
+          # How long Prometheus will wait for Blackbox Exporter to respond
+          scrape_timeout: 30s
+          metrics_path: /probe # Standard Blackbox Exporter endpoint
+          params:
+            module: [http_sit_readiness]  # Tells Blackbox Exporter to use our new module
+          static_configs:
+            - targets:
+              - https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness
+              - https://rbifxs-cloud.sit.crisp.rbro.rbg.cc/fxs/v1/pod/readiness
+              - https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness
+              - https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/readiness
+              - https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/readiness
+          relabel_configs:
+            # 1. Copy the target URL (__address__) to __param_target.
+            #    Prometheus passes __param_target to Blackbox Exporter as the 'target' URL query parameter.
+            - source_labels: [__address__]
+              target_label: __param_target
+            # 2. Set the 'instance' label for these metrics to be the actual URL being probed.
+            #    This makes dashboards/alerts much clearer.
+            - source_labels: [__param_target]
+              target_label: instance
+            # 3. Rewrite the __address__ (where Prometheus scrapes) to point to your Blackbox Exporter service.
+            - target_label: __address__
+              # This needs to be the Kubernetes service name of your Blackbox Exporter.
+              # If your wrapper chart is released as 'my-stack', the blackbox exporter service
+              # (from the 'prometheus-blackbox-exporter' subchart) will typically be named:
+              # 'my-stack-prometheus-blackbox-exporter:9115'
+              #
+              # Replace 'YOUR_WRAPPER_RELEASE_NAME' with the actual Helm release name of your wrapper chart.
+              # The subchart name 'prometheus-blackbox-exporter' comes from your Chart.yaml dependencies.
+              replacement: YOUR_WRAPPER_RELEASE_NAME-prometheus-blackbox-exporter:9115
+
+# ... other subchart configurations for loki, promtail, etc. if you need to override their values ...
+# loki:
+#   enabled: true
+#   # ... loki specific overrides ...
+
+# promtail:
+#   enabled: true
+#   # ... promtail specific overrides ...
