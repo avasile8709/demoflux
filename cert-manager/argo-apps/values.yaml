@@ -1,0 +1,14 @@
+spec:
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: cert-manager
+      cluster: mgmt
+      version: v1.16.2
+    - server: https://10.241.125.70:6443
+      namespace: cert-manager
+      cluster: test
+      version: v1.16.2
+  source:
+    repoURL: https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git
+    targetRevision: main
+  project: infrastructure
