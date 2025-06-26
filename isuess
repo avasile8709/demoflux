@@ -1,0 +1,8 @@
+andvas@m026vaand:/mnt/c/Users/t026vaand/repository/infrastructure-kubernetes/prometheus/instances/worker-grafana-003$ helm template . -f values.yaml -f ../mgmt/mgmt-values.yaml  --debug > /tmp/helm-template-prometheus.yaml
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/andvas/.kube/mgmt_rke2.yaml
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/andvas/.kube/mgmt_rke2.yaml
+install.go:214: [debug] Original chart version: ""
+install.go:231: [debug] CHART PATH: /mnt/c/Users/t026vaand/repository/infrastructure-kubernetes/prometheus/instances/worker-grafana-003
+
+Error: template: kube-prometheus-stack-wrapper/templates/grafana-certificate.yaml:6:34: executing "kube-prometheus-stack-wrapper/templates/grafana-certificate.yaml" at <.Values.grafana.ingress.hosts>: nil pointer evaluating interface {}.ingress
+helm.go:84: [debug] template: kube-prometheus-stack-wrapper/templates/grafana-certificate.yaml:6:34: executing "kube-prometheus-stack-wrapper/templates/grafana-certificate.yaml" at <.Values.grafana.ingress.hosts>: nil pointer evaluating interface {}.ingress
