@@ -1,0 +1,31 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ trunc 63 ((index .Values.pgadmin4.ingress.hosts 0).host | default (index .Values.pgadmin4.ingress.hosts 0)) }}
+spec:
+  secretName: {{ trunc 63 ((index .Values.pgadmin4.ingress.hosts 0).host | default (index .Values.pgadmin4.ingress.hosts 0)) }}
+  duration: 17520h # 2y
+  renewBefore: 360h # 15d
+  isCA: false
+  privateKey:
+#   algorithm: RSA
+#   encoding: PKCS1
+    size: 4096
+    rotationPolicy: Always
+  usages:
+    - server auth
+    - client auth
+  commonName: {{ trunc 63 ((index .Values.pgadmin4.ingress.hosts 0).host | default (index .Values.pgadmin4.ingress.hosts 0)) }}
+  dnsNames: 
+    - {{ trunc 63 ((index .Values.pgadmin4.ingress.hosts 0).host | default (index .Values.pgadmin4.ingress.hosts 0)) }}
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: vault-cluster-issuer
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef:
+        name: {{ trunc 63 ((index .Values.pgadmin4.ingress.hosts 0).host | default (index .Values.pgadmin4.ingress.hosts 0)) }}-jks
+        key: password
