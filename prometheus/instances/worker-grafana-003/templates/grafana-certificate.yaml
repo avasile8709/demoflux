@@ -1,0 +1,25 @@
+{{- $grafana := index .Values "kube-prometheus-stack" "grafana" "enabled" | default false -}}
+{{- if $grafana }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ trunc 63 (index .Values "kube-prometheus-stack" "grafana" "ingress" "hosts" 0) }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  secretName: {{ trunc 63 (index .Values "kube-prometheus-stack" "grafana" "ingress" "hosts" 0) }}
+  duration: 17520h # 2 years
+  renewBefore: 360h # 15 days
+  privateKey:
+    size: 4096
+    rotationPolicy: Always
+  usages:
+    - server auth
+    - client auth
+  commonName: {{ trunc 63 (index .Values "kube-prometheus-stack" "grafana" "ingress" "hosts" 0) }}
+  dnsNames:
+    - {{ trunc 63 (index .Values "kube-prometheus-stack" "grafana" "ingress" "hosts" 0) }}
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: vault-cluster-issuer
+{{- end }}

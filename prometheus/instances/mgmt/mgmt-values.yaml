@@ -93,6 +93,10 @@ kube-prometheus-stack:
         - "/"
       hosts:
         - grafana.mgmt.crisp.rbro.rbg.cc
+      tls:
+        - hosts:
+            - grafana.mgmt.crisp.rbro.rbg.cc
+          secretName: grafana.mgmt.crisp.rbro.rbg.cc
     additionalDataSources:
 
     grafana.ini:

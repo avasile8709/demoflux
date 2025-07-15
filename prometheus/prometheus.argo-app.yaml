@@ -12,7 +12,7 @@ spec:
   source:
     path: prometheus/argo-apps
     repoURL: https://git.crisp.rbro.rbg.cc/CRISP/infrastructure-kubernetes.git
-    targetRevision: main
+    targetRevision: playground
     helm:
       valueFiles:
         - values.yaml

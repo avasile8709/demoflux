@@ -1,0 +1,2539 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 37,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 11,
+      "panels": [],
+      "title": "SIT",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/readiness\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "RBICAS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIFSIS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 6,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "RBIPCS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 7,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIXCT   Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 8,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "RBIPCS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 9,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "RBIPOM  Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 5
+      },
+      "id": 10,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "RBISEPA Status",
+      "type": "state-timeline"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 12,
+      "panels": [],
+      "title": "UAT",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 10
+      },
+      "id": 13,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbicas-cloud.uat.crisp.rbro.rbg.cc/cas/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbicas-cloud.uat.crisp.rbro.rbg.cc/cas/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbicas-cloud.uat.crisp.rbro.rbg.cc/cas/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBICAS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 10
+      },
+      "id": 14,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbifsis-cloud.uat.crisp.rbro.rbg.cc/fsis/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbifsis-cloud.uat.crisp.rbro.rbg.cc/fsis/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbifsis-cloud.uat.crisp.rbro.rbg.cc/fsis/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIFSIS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 10
+      },
+      "id": 16,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbipcs-cloud.uat.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbipcs-cloud.uat.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbipcs-cloud.uat.crisp.rbro.rbg.cc/pcs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIPCS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 10
+      },
+      "id": 18,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbixct-cloud.uat.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbixct-cloud.uat.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbixct-cloud.uat.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIXCT   Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 10
+      },
+      "id": 15,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbifxs-cloud.uat.crisp.rbro.rbg.cc/fxs/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbifxs-cloud.uat.crisp.rbro.rbg.cc/fxs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbifxs-cloud.uat.crisp.rbro.rbg.cc/fxs/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIFXS Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 10
+      },
+      "id": 17,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbipom-cloud.uat.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbipom-cloud.uat.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbipom-cloud.uat.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBIPOM  Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 14
+      },
+      "id": 19,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBISEPA Status",
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "2111"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                },
+                "200": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "HTTP Status 200 - OK"
+                },
+                "204": {
+                  "color": "green",
+                  "index": 2,
+                  "text": "HTTP Status 204 - OK"
+                },
+                "500": {
+                  "color": "red",
+                  "index": 4,
+                  "text": "HTTP Status 500 - Server Error"
+                },
+                "502": {
+                  "color": "red",
+                  "index": 5,
+                  "text": "HTTP Status 502 - Bad Gateway"
+                },
+                "503": {
+                  "color": "red",
+                  "index": 6,
+                  "text": "HTTP Status 503 - Service Unavailable"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 400,
+                "result": {
+                  "color": "red",
+                  "index": 7,
+                  "text": "HTTP Status 4XX - ERROR"
+                },
+                "to": 499
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 14
+      },
+      "id": 20,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_success{job=\"$job\",instance=\"https://rbicbis-cloud.uat.crisp.rbro.rbg.cc/cbis/api/operations/v4/healthunsecured\"}",
+          "instant": false,
+          "legendFormat": "Endpoint",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_http_status_code{job=\"$job\",instance=\"https://rbicbis-cloud.uat.crisp.rbro.rbg.cc/cbis/api/operations/v4/healthunsecured\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ResponseCode",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "2111"
+          },
+          "editorMode": "code",
+          "expr": "probe_duration_seconds{job=\"$job\",instance=\"https://rbicbis-cloud.uat.crisp.rbro.rbg.cc/cbis/api/operations/v4/healthunsecured\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "ExecTime",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "RBICBIS Status",
+      "type": "state-timeline"
+    }
+  ],
+  "preload": false,
+  "refresh": "1m",
+  "schemaVersion": 40,
+  "tags": [
+    "Crisp- DevOps",
+    "OPF",
+    "Monitoring",
+    "RBI"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "blackbox-external-sit-readiness",
+          "value": "blackbox-external-sit-readiness"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "2111"
+        },
+        "definition": "label_values(probe_http_status_code{job=\"blackbox-external-sit-readiness\"},job)",
+        "hide": 2,
+        "name": "job",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(probe_http_status_code{job=\"blackbox-external-sit-readiness\"},job)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "OPF RBI Service Health Monitoring",
+  "uid": "ceptlj553q3g0d",
+  "version": 5,
+  "weekStart": ""
+}

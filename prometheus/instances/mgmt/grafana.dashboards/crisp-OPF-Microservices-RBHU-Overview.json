@@ -1,0 +1,4944 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 40,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "panels": [],
+      "title": "OPF RBI Central",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"200\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 200",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicas-cas-rbi.*\"} |= \"statusCode=\\\\\\\"504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "I"
+        }
+      ],
+      "title": "RBICAS-RBI",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "reason code: VALIDATION_ERROR",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"code\\\\\\\":\\\\\\\"COMMON_BAD_REQUEST\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code:  COMMON_BAD_REQUEST",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"code\\\\\\\":\\\\\\\"Bad gateway\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: Bad gateway",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"code\\\\\\\":\\\\\\\"COMMON_INTERNAL_ERROR\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: COMMON_INTERNAL_ERROR",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"code\\\\\\\":\\\\\\\"INTERNAL_SERVER_ERROR\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: INTERNAL_SERVER_ERROR",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":401\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":403\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":404\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-deployment.*\"} |= \"status\\\\\\\":504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBICBIS-CLOUD",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"200\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 200",
+          "queryType": "range",
+          "refId": "C",
+          "step": ""
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"400\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"500\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"state\\\\\\\\\\\\\\\":\\\\\\\\\\\\\\\"REJECTED\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "state: REJECTED",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"401\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"403\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"404\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"502\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"503\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-fxs-rbi.*\"} |= \"statusCode=\\\\\\\"504\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "J"
+        }
+      ],
+      "title": "RBIFXS-FXS",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"200\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 200",
+          "queryType": "range",
+          "refId": "C",
+          "step": ""
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"\\\"BAD_REQUEST\\\\\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: Bad Request",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"\\\"Technical Issue\\\\\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: FAILED - Technical Issue",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"401\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"403\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"404\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-a-1.*\"} |= \"statusCode=\\\\\\\"504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "K"
+        }
+      ],
+      "title": "RBIPCS",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 200 ",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"401\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"403\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"404\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifsis-a.*\"} |=  \"statusCode=\\\"504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "I"
+        }
+      ],
+      "title": "RBIFSIS",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 8
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"200\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 200",
+          "queryType": "range",
+          "refId": "C",
+          "step": ""
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"processingStatusCode\\\\\\\":\\\\\\\"PROCESSED\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "Status: PROCESSED",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"TECHNICAL_FAILURE\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "responseCode: TECHNICAL_FAILURE",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"processingStatusCode\\\\\\\":\\\\\\\"FAILED\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "Status: FAILED",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"401\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"403\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"404\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbisepa-pex.*\"} |= \"statusCode=\\\\\\\"504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "L"
+        }
+      ],
+      "title": "RBISEPA-PEX",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 15
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"200\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 200",
+          "queryType": "range",
+          "refId": "C",
+          "step": ""
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"severity=\\\\\\\"ERROR\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "severity=ERROR",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"401\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 401",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"403\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 403",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"404\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 404",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 502",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 503",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-pom-sct.*\"} |= \"statusCode=\\\\\\\"504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 504",
+          "queryType": "range",
+          "refId": "K"
+        }
+      ],
+      "title": "RBIPOM-SCT",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 15
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"200\\\\\\\"\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "StatusCode 200",
+          "queryType": "range",
+          "refId": "C",
+          "step": ""
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"processingStatusCode\\\\\\\":\\\\\\\"PROCESSED\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "Status: PROCESSED",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"TECHNICAL_FAILURE\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "responseCode: TECHNICAL_FAILURE",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"processingStatusCode\\\\\\\":\\\\\\\"FAILED\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "Status: FAILED",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"400\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "StatusCode 400",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbixct-pex.*\"} |= \"statusCode=\\\\\\\"500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "StatusCode 500",
+          "queryType": "range",
+          "refId": "L"
+        }
+      ],
+      "title": "RBIXCT-PEX",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 10,
+      "panels": [],
+      "title": "OPF RBHU",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 13,
+        "x": 0,
+        "y": 23
+      },
+      "id": 30,
+      "links": [
+        {
+          "title": "Logs",
+          "url": "http://grafana.mgmt.crisp.rbro.rbg.cc/d/mSysLogs/monitoring-system-logs"
+        }
+      ],
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully read 1 messages from queue 'RBHU.CBIS.API.TO.BACKEND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.BACKEND.TO.API.OUTBOUND.POSTING\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.BACKEND.TO.API.OUTBOUND.POSTING",
+          "queryType": "range",
+          "refId": "N"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.BACKEND.TO.API.OUTBOUND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.BACKEND.TO.API.OUTBOUND.AE",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBICBIS-RBHU-IMS-API-BACKEND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 13,
+        "y": 23
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.FXS.BACKEND.TO.API.OUTBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.OUTBOUND.BKP",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully read 1 messages from queue 'RBHU.FXS.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.FXS.BACKEND.TO.API.INBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.FXS.BACKEND.TO.API.INBOUND",
+          "queryType": "range",
+          "refId": "N"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBIFXS-RBHU-IMS-API-BACKEND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 13,
+        "x": 0,
+        "y": 32
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.TO.BACKEND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"Successfully read 1 messages from queue 'RBHU.CBIS.BACKEND.TO.API.OUTBOUND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.CBIS.BACKEND.TO.API.OUTBOUND.AE",
+          "queryType": "range",
+          "refId": "N"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-ae.*\"} |= \"HTTP/1.1 \\\" 204\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 204",
+          "queryType": "range",
+          "refId": "F"
+        }
+      ],
+      "title": "RBICBIS-RBHU-IMS-API-GATEWAY-OUTBOUND-AE",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 13,
+        "y": 32
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.FXS.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.FXS.API.TO.BACKEND",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"Successfully read 1 messages from queue 'RBHU.FXS.BACKEND.TO.API.OUTBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.FXS.BACKEND.TO.API.OUTBOUND",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "RBIFXS-RBHU-IMS-API-GATEWAY-OUTBOUND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 13,
+        "x": 0,
+        "y": 41
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.OUTBOUND.BKP\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.OUTBOUND.BKP",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.TO.BACKEND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBIPCS-RBHU-IMS-API-GATEWAY-OUTBOUND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 41
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.POM.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.POM.API.TO.BACKEND",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"Successfully read 1 messages from queue 'RBHU.POM.BACKEND.TO.API.OUTBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.POM.BACKEND.TO.API.OUTBOUND",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayoutbound.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBIPOM-RBHU-IMS-API-GATEWAY-OUTBOUND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 13,
+        "x": 0,
+        "y": 49
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.PCS.BACKEND.TO.API.OUTBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.PCS.BACKEND.TO.API.OUTBOUND'",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully read 1 messages from queue 'RBHU.PCS.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.PCS.API.TO.BACKEND'",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipcs-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "RBIPCS-RBHU-IMS-API-BACKEND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 49
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.POM.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.POM.API.TO.BACKEND",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"Successfully read 1 messages from queue 'RBHU.POM.BACKEND.TO.API.INBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.POM.BACKEND.TO.API.INBOUND",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBIPOM-RBHU-IMS-API-GATEWAY-INBOUND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 13,
+        "x": 0,
+        "y": 57
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.OUTBOUND.BKP\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.OUTBOUND.BKP",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.TO.BACKEND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 204\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 204",
+          "queryType": "range",
+          "refId": "N"
+        }
+      ],
+      "title": "RBICBIS-RBHU-IMS-API-GATEWAY-INBOUND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 57
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.OUTBOUND.BKP\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.OUTBOUND.BKP",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.CBIS.API.TO.BACKEND.AE\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbicbis-cloud-rbhu-ims-apigatewayoutbound-post.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBICBIS-RBHU-IMS-API-GATEWAY-OUTBOUND-POST",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 13,
+        "x": 0,
+        "y": 65
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.FXS.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.FXS.API.TO.BACKEND",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"Successfully read 1 messages from queue 'RBHU.FXS.BACKEND.TO.API.INBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.CBIS.API.TO.BACKEND.AE",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbifxs-cloud-rbhu-ims-apigatewayinbound.*\"} |= \"HTTP/1.1 \\\" 204\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 204",
+          "queryType": "range",
+          "refId": "O"
+        }
+      ],
+      "title": "RBIFXS-RBHU-IMS-API-GATEWAY-INBOUND",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "2011"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.5,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 65
+      },
+      "id": 23,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully committed 1 message(s) for queue 'RBHU.POM.BACKEND.TO.API.OUTBOUND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Committed Messages 'RBHU.POM.BACKEND.TO.API.OUTBOUND",
+          "queryType": "range",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"Successfully read 1 messages from queue 'RBHU.POM.API.TO.BACKEND\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "Read Messages 'RBHU.POM.API.TO.BACKEND",
+          "queryType": "range",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR RESTServer: Timeout request\" [$__interval]))",
+          "hide": false,
+          "legendFormat": "reason code: ERROR RESTServer: Timeout request",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \" ERROR \" [$__interval]))",
+          "hide": false,
+          "key": "Q-5e88facc-d3b8-4085-a58b-2db5143a1ba2-1",
+          "legendFormat": "severity: ERROR",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 504\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 504",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 500\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 500",
+          "queryType": "range",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 200\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 200",
+          "queryType": "range",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 502\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 502",
+          "queryType": "range",
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 503\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 503",
+          "queryType": "range",
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 400\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 400",
+          "queryType": "range",
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 401\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 401",
+          "queryType": "range",
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 403\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 403",
+          "queryType": "range",
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "2011"
+          },
+          "editorMode": "code",
+          "expr": "sum(count_over_time({namespace=\"$namespace\", pod=~\"rbipom-cloud-rbhu-ims-apibackend.*\"} |= \"HTTP/1.1 \\\" 404\" [$__interval]))",
+          "hide": false,
+          "key": "Q-9008569e-c751-4ace-9b99-c917727607fd-2",
+          "legendFormat": "HTTP StatusCode 404",
+          "queryType": "range",
+          "refId": "M"
+        }
+      ],
+      "title": "RBIPOM-RBHU-IMS-API-BACKEND",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 40,
+  "tags": [
+    "Crisp- DevOps",
+    "Monitoring",
+    "RBHU",
+    "OPF"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "test",
+          "value": "2111"
+        },
+        "hide": 2,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "/^test/",
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "label_values(kube_node_info,cluster)",
+        "hide": 2,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(kube_node_info,cluster)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "sit",
+          "value": "sit"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "label_values(kube_pod_info{cluster=\"$cluster\"},namespace)",
+        "name": "namespace",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(kube_pod_info{cluster=\"$cluster\"},namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "^(sit|uat)$",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "OPF Microservices RBHU Overview",
+  "uid": "ceoms5ycxspa8e",
+  "version": 2,
+  "weekStart": ""
+}

@@ -144,7 +144,54 @@ kube-prometheus-stack:
       # additionalScrapeConfigs:
       #   name: crisp-additional-scrape-config
       #   key: additional-scrape-configs.yaml
-      additionalScrapeConfigs: []
+      additionalScrapeConfigs:
+        ## Monitor external services
+        - job_name: 'blackbox-external-sit-readiness'
+          # How often Prometheus should ask Blackbox Exporter to probe these targets
+          scrape_interval: 60s
+          # How long Prometheus will wait for Blackbox Exporter to respond
+          scrape_timeout: 30s
+          metrics_path: /probe # Standard Blackbox Exporter endpoint
+          params:
+            module: [http_sit_readiness]  # Tells Blackbox Exporter to use our new module
+          static_configs:
+            - targets:
+              - https://rbipom-cloud.sit.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness
+              - https://rbifxs-cloud.sit.crisp.rbro.rbg.cc/fxs/v1/pod/readiness
+              - https://rbipcs-cloud.sit.crisp.rbro.rbg.cc/pcs/v1/pod/readiness
+              - https://rbicas-cloud.sit.crisp.rbro.rbg.cc/cas/v1/pod/readiness
+              - https://rbifsis-cloud.sit.crisp.rbro.rbg.cc/fsis/v1/pod/readiness
+              - https://rbixct-cloud.sit.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready
+              - https://rbisepa-cloud.sit.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready
+              - https://rbicbis-cloud.sit.crisp.rbro.rbg.cc/cbis/api/operations/v4/healthunsecured
+              - https://rbipom-cloud.uat.crisp.rbro.rbg.cc/pom-sct/v1/pod/readiness
+              - https://rbifxs-cloud.uat.crisp.rbro.rbg.cc/fxs/v1/pod/readiness
+              - https://rbipcs-cloud.uat.crisp.rbro.rbg.cc/pcs/v1/pod/readiness
+              - https://rbicas-cloud.uat.crisp.rbro.rbg.cc/cas/v1/pod/readiness
+              - https://rbifsis-cloud.uat.crisp.rbro.rbg.cc/fsis/v1/pod/readiness
+              - https://rbixct-cloud.uat.crisp.rbro.rbg.cc/xctrest/webapi/v1/probes/ready
+              - https://rbisepa-cloud.uat.crisp.rbro.rbg.cc/opfrest/webapi/v1/probes/ready
+              - https://rbicbis-cloud.uat.crisp.rbro.rbg.cc/cbis/api/operations/v4/healthunsecured
+          relabel_configs:
+            # 1. Save address in a separate label
+            - source_labels: [__address__]
+              target_label: __param_target
+
+            # 2. Save module in an module label since __param_module is going to be dropped
+            - source_labels: [module]
+              target_label: __param_module
+
+            # 3. Save module in an module label since __param_target is going to be dropped
+            - source_labels: [__param_target]
+              target_label: instance
+
+            # 4. Replace address with an internal blackbox service so scraper is always pointed at blackbox-exporter
+            - target_label: __address__
+              replacement: prometheus-test-prometheus-blackbox-exporter:9115
+            # Ingress annotation for disableing checks - monitoring/exclude: true
+            - source_labels: [__meta_kubernetes_ingress_annotation_monitoring_exclude]
+              regex: "true"
+              action: drop
 
     ingress:
       enabled: true
@@ -222,7 +269,186 @@ kube-prometheus-stack:
         value: "true"
 
 prometheus-blackbox-exporter:
-  enabled: false
+  enabled: true
+
+  restartPolicy: Always
+
+  kind: Deployment
+
+  podDisruptionBudget: {}
+    # maxUnavailable: 0
+
+  ## Enable pod security policy
+  pspEnabled: true
+
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistrKeySecretName
+
+  ## User to run blackbox-exporter container as
+  runAsUser: 1000
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+
+  nodeSelector:
+    kubernetes.io/os: linux
+    ReservedFor: monitoring
+
+  tolerations:
+    - key: "ForMonitoring"
+      operator: "Equal"
+      value: "true"
+
+  affinity: {}
+
+  secretConfig: false
+
+  config:
+    modules:
+      http_sit_readiness:
+        prober: http
+        timeout: 20s
+        http:
+          follow_redirects: true
+          valid_http_versions: 
+            - "HTTP/1.1"
+            - "HTTP/2.0"
+          preferred_ip_protocol: "ip4"
+          valid_status_codes:
+            - 200
+            - 204
+            - 302
+          tls_config:
+            insecure_skip_verify: true
+
+  extraConfigmapMounts: []
+    # - name: crisp.rbro.rbg.cc
+    #   mountPath: /etc/secrets/ssl
+    #   configMap: crisp.rbro.rbg.cc
+    #   readOnly: true
+    #   defaultMode: 420
+
+  ## Additional secret mounts
+  # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
+  extraSecretMounts: []
+    # - name: secret-files
+    #   mountPath: /etc/secrets
+    #   secretName: blackbox-secret-files
+    #   readOnly: true
+    #   defaultMode: 420
+
+  allowIcmp: false
+
+  resources: {}
+    # limits:
+    #   memory: 300Mi
+    # requests:
+    #   memory: 50Mi
+
+  priorityClassName: ""
+
+  service:
+    annotations: {}
+    labels: {}
+    type: ClusterIP
+    port: 9115
+
+  serviceAccount:
+    # Specifies whether a ServiceAccount should be created
+    create: true
+    # The name of the ServiceAccount to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name:
+    annotations: {}
+
+  ## An Ingress resource can provide name-based virtual hosting and TLS
+  ## termination among other things for CouchDB deployments which are accessed
+  ## from outside the Kubernetes cluster.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+  ingress:
+    enabled: false
+    className: ""
+    labels: {}
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: blackbox.test.crisp.rbro.rbg.cc
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  podAnnotations: {}
+
+  pod:
+    labels: {}
+
+  extraArgs: []
+  #  --history.limit=1000
+
+  replicas: 1
+
+  serviceMonitor:
+    ## If true, a ServiceMonitor CRD is created for a prometheus operator
+    ## https://github.com/coreos/prometheus-operator
+    ##
+    enabled: false
+
+    # Default values that will be used for all ServiceMonitors created by `targets`
+    defaults:
+      additionalMetricsRelabels: {}
+      labels: {}
+      interval: 30s
+      scrapeTimeout: 30s
+      module: http_sit_readiness
+
+  ## Custom PrometheusRules to be defined
+  ## ref: https://github.com/coreos/prometheus-operator#customresourcedefinitions
+  prometheusRule:
+    enabled: false
+    additionalLabels: {}
+    namespace: ""
+    rules: []
+
+  ## Network policy for chart
+  networkPolicy:
+    # Enable network policy and allow access from anywhere
+    enabled: false
+    # Limit access only from monitoring namespace
+    allowMonitoringNamespace: false
+
+  ## dnsPolicy and dnsConfig for Deployments and Daemonsets if you want non-default settings.
+  ## These will be passed directly to the PodSpec of same.
+  dnsPolicy:
+  dnsConfig:
+    # nameservers:
+    #   - 10.241.200.1
+    #   - 10.241.200.2
+    #   - 10.241.200.3
 
 prometheus-msteams:
   image:
